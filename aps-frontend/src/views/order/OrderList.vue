@@ -78,7 +78,7 @@
 
         <el-table-column prop="customerName" label="客户名称" width="120" />
         
-        <el-table-column prop="productType" label="产品类型" width="100" />
+        <el-table-column prop="productType" label="产品名称" width="100" />
 
         <el-table-column prop="orderType" label="订单类型" width="120">
           <template #default="{ row }">
@@ -86,7 +86,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="deliveryDate" label="交货期" width="120" />
+        <el-table-column prop="deliveryDate" label="承诺交期" width="120" />
         
         <el-table-column prop="status" label="状态" width="120">
           <template #default="{ row }">
@@ -102,7 +102,7 @@
         
         <el-table-column prop="panelCount" label="板件数" width="100" />
         
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button type="primary" link @click="handleViewDetail(row)">
               <el-icon><View /></el-icon>
@@ -117,6 +117,14 @@
               <el-icon><VideoPlay /></el-icon>
               预处理
             </el-button>
+            <template v-if="row.status === '审核失败'">
+              <el-button type="warning" link @click="handleMarkPending(row)">
+                标记待审核
+              </el-button>
+              <el-button type="danger" link @click="handleCancelOrder(row)">
+                取消
+              </el-button>
+            </template>
           </template>
         </el-table-column>
       </el-table>
@@ -139,7 +147,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Search, Refresh, VideoPlay, View } from '@element-plus/icons-vue'
 import { useOrderStore } from '../../stores/order'
 
@@ -257,6 +265,56 @@ const handleSinglePreprocess = async (row) => {
 // 查看详情
 const handleViewDetail = (row) => {
   router.push(`/order/detail/${row.orderNo}`)
+}
+
+// 标记为待审核
+const handleMarkPending = async (row) => {
+  try {
+    const storageKey = 'aps_mock_data'
+    const storedData = localStorage.getItem(storageKey)
+    if (storedData) {
+      const data = JSON.parse(storedData)
+      const order = data.orders.find(o => o.orderNo === row.orderNo)
+      if (order) {
+        order.status = '待审核'
+        localStorage.setItem(storageKey, JSON.stringify(data))
+        ElMessage.success('订单已标记为待审核状态')
+        orderStore.fetchOrders()
+      }
+    }
+  } catch (error) {
+    ElMessage.error('操作失败')
+  }
+}
+
+// 取消订单
+const handleCancelOrder = async (row) => {
+  try {
+    await ElMessageBox.confirm(
+      `确定要取消订单 ${row.orderNo} 吗？取消后将无法恢复。`,
+      '取消订单',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+    )
+    
+    const storageKey = 'aps_mock_data'
+    const storedData = localStorage.getItem(storageKey)
+    if (storedData) {
+      const data = JSON.parse(storedData)
+      const order = data.orders.find(o => o.orderNo === row.orderNo)
+      if (order) {
+        order.status = '已取消'
+        localStorage.setItem(storageKey, JSON.stringify(data))
+        ElMessage.success('订单已取消')
+        orderStore.fetchOrders()
+      }
+    }
+  } catch (error) {
+    // 用户取消操作
+  }
 }
 
 // 分页

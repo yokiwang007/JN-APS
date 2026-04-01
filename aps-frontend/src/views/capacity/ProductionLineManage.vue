@@ -3,7 +3,7 @@
     <el-card shadow="never">
       <template #header>
         <div class="card-header">
-          <span>产线管理</span>
+          <span>标准产能设置</span>
           <el-button type="primary" size="small" @click="refreshData">
             <el-icon><Refresh /></el-icon>
             刷新
@@ -22,9 +22,15 @@
           </template>
         </el-table-column>
         
-        <el-table-column prop="standardCapacity" label="标准日产能" width="120">
+        <el-table-column prop="standardCapacity" label="标准产能(件)" width="130">
           <template #default="{ row }">
             {{ row.standardCapacity }} 件/天
+          </template>
+        </el-table-column>
+        
+        <el-table-column prop="standardCapacityArea" label="标准产能(㎡)" width="130">
+          <template #default="{ row }">
+            {{ row.standardCapacityArea || '-' }} ㎡/天
           </template>
         </el-table-column>
         
@@ -72,7 +78,7 @@
     <!-- 编辑对话框 -->
     <el-dialog
       v-model="editDialogVisible"
-      title="编辑产线"
+      title="编辑标准产能"
       width="600px"
     >
       <el-form :model="editForm" label-width="120px">
@@ -89,9 +95,14 @@
           </el-select>
         </el-form-item>
         
-        <el-form-item label="标准日产能">
+        <el-form-item label="标准产能(件)">
           <el-input-number v-model="editForm.standardCapacity" :min="100" :max="2000" />
           <span style="margin-left: 8px; color: #909399">件/天</span>
+        </el-form-item>
+        
+        <el-form-item label="标准产能(㎡)">
+          <el-input-number v-model="editForm.standardCapacityArea" :min="10" :max="1000" />
+          <span style="margin-left: 8px; color: #909399">㎡/天</span>
         </el-form-item>
         
         <el-form-item label="当前状态">

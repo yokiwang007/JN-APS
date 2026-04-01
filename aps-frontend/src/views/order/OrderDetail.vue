@@ -8,15 +8,29 @@
         <template #header>
           <div class="card-header">
             <span>基本信息</span>
-            <el-tag :type="getStatusType(order.status)">{{ order.status }}</el-tag>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <el-tag :type="getStatusType(order.status)">{{ order.status }}</el-tag>
+              <!-- 审核失败订单的操作按钮 -->
+              <template v-if="order.status === '审核失败'">
+                <el-button type="warning" size="small" @click="markAsPending">
+                  标记待审核
+                </el-button>
+                <el-button type="success" size="small" @click="repreprocess">
+                  重新预处理
+                </el-button>
+                <el-button type="danger" size="small" @click="cancelOrder">
+                  取消订单
+                </el-button>
+              </template>
+            </div>
           </div>
         </template>
         
         <el-descriptions :column="3" border>
           <el-descriptions-item label="订单号">{{ order.orderNo }}</el-descriptions-item>
           <el-descriptions-item label="客户名称">{{ order.customerName }}</el-descriptions-item>
-          <el-descriptions-item label="产品类型">{{ order.productType }}</el-descriptions-item>
-          <el-descriptions-item label="交货期">{{ order.deliveryDate }}</el-descriptions-item>
+          <el-descriptions-item label="产品名称">{{ order.productType }}</el-descriptions-item>
+          <el-descriptions-item label="承诺交期">{{ order.deliveryDate }}</el-descriptions-item>
           <el-descriptions-item label="优先级">
             <el-tag :type="getPriorityType(order.priority)">{{ order.priority }}</el-tag>
           </el-descriptions-item>
@@ -203,8 +217,33 @@
       <!-- 预处理结果 -->
       <el-card class="result-card" shadow="never" style="margin-top: 20px" v-if="preprocessResult">
         <template #header>
-          <span>预处理结果</span>
+          <div class="card-header">
+            <span>预处理结果</span>
+            <el-button 
+              v-if="preprocessResult.preprocessHistory && preprocessResult.preprocessHistory.length > 1"
+              type="primary" 
+              size="small" 
+              link
+              @click="showPreprocessHistory"
+            >
+              查看历史记录 ({{ preprocessResult.preprocessHistory.length }})
+            </el-button>
+          </div>
         </template>
+        
+        <!-- 最近一次预处理信息 -->
+        <div v-if="preprocessResult.latestPreprocess" style="margin-bottom: 16px; padding: 12px; background: #f5f7fa; border-radius: 4px;">
+          <div style="display: flex; align-items: center; gap: 20px; color: #606266; font-size: 14px;">
+            <span>
+              <el-icon style="margin-right: 4px;"><User /></el-icon>
+              执行人：<strong>{{ preprocessResult.latestPreprocess.executor }}</strong>
+            </span>
+            <span>
+              <el-icon style="margin-right: 4px;"><Clock /></el-icon>
+              执行时间：<strong>{{ preprocessResult.latestPreprocess.executeTime }}</strong>
+            </span>
+          </div>
+        </div>
         
         <el-descriptions :column="2" border>
           <el-descriptions-item label="信息完整性校验">
@@ -238,6 +277,64 @@
           </el-alert>
         </div>
       </el-card>
+      
+      <!-- 预处理历史记录对话框 -->
+      <el-dialog
+        v-model="historyDialogVisible"
+        title="预处理历史记录"
+        width="70%"
+        :close-on-click-modal="false"
+      >
+        <el-table :data="preprocessResult?.preprocessHistory || []" stripe border>
+          <el-table-column prop="executor" label="执行人" width="120" />
+          <el-table-column prop="executeTime" label="执行时间" width="180" />
+          <el-table-column label="状态" width="100">
+            <template #default="{ row }">
+              <el-tag :type="row.status === 'QUALIFIED' ? 'success' : 'danger'">
+                {{ row.status === 'QUALIFIED' ? '合格' : '不合格' }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="信息完整性校验" width="140">
+            <template #default="{ row }">
+              <el-tag :type="row.infoValidation === 'PASSED' ? 'success' : 'danger'" size="small">
+                {{ row.infoValidation }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="技术审核" width="100">
+            <template #default="{ row }">
+              <el-tag :type="row.splitAudit === 'PASSED' ? 'success' : 'danger'" size="small">
+                {{ row.splitAudit }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="物料检查" width="100">
+            <template #default="{ row }">
+              <el-tag :type="row.materialCheck.status === 'PASSED' ? 'success' : 'danger'" size="small">
+                {{ row.materialCheck.status }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="优先级" width="80">
+            <template #default="{ row }">
+              <el-tag :type="getPriorityType(row.priority)" size="small">
+                {{ row.priority }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="缺料信息">
+            <template #default="{ row }">
+              <div v-if="row.materialCheck.details && row.materialCheck.details.length > 0">
+                <div v-for="(item, index) in row.materialCheck.details" :key="index" style="font-size: 12px;">
+                  {{ item.material }}: 缺料 {{ item.shortage }} 件
+                </div>
+              </div>
+              <span v-else style="color: #909399;">-</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -245,8 +342,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import { Download } from '@element-plus/icons-vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Download, User, Clock } from '@element-plus/icons-vue'
 import { useOrderStore } from '../../stores/order'
 
 const route = useRoute()
@@ -258,6 +355,7 @@ const panels = ref([])
 const preprocessResult = ref(null)
 const displayMode = ref('list')
 const expandedGroups = ref([])
+const historyDialogVisible = ref(false)
 
 const panelFilter = ref({
   type: '',
@@ -365,6 +463,76 @@ const goBack = () => {
 // 导出Excel
 const handleExport = () => {
   ElMessage.success('导出功能开发中')
+}
+
+// 显示预处理历史记录
+const showPreprocessHistory = () => {
+  historyDialogVisible.value = true
+}
+
+// 标记为待审核
+const markAsPending = async () => {
+  try {
+    const storageKey = 'aps_mock_data'
+    const storedData = localStorage.getItem(storageKey)
+    if (storedData) {
+      const data = JSON.parse(storedData)
+      const orderData = data.orders.find(o => o.orderNo === order.value.orderNo)
+      if (orderData) {
+        orderData.status = '待审核'
+        localStorage.setItem(storageKey, JSON.stringify(data))
+        order.value.status = '待审核'
+        ElMessage.success('订单已标记为待审核状态')
+      }
+    }
+  } catch (error) {
+    ElMessage.error('操作失败')
+  }
+}
+
+// 重新预处理
+const repreprocess = async () => {
+  try {
+    const result = await orderStore.executePreprocess({
+      orderPoolScope: 'CUSTOM',
+      customOrderIds: [order.value.orderNo]
+    })
+    ElMessage.success('重新预处理完成')
+    // 重新加载数据
+    loadData()
+  } catch (error) {
+    ElMessage.error('预处理失败')
+  }
+}
+
+// 取消订单
+const cancelOrder = async () => {
+  try {
+    await ElMessageBox.confirm(
+      `确定要取消订单 ${order.value.orderNo} 吗？取消后将无法恢复。`,
+      '取消订单',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+    )
+    
+    const storageKey = 'aps_mock_data'
+    const storedData = localStorage.getItem(storageKey)
+    if (storedData) {
+      const data = JSON.parse(storedData)
+      const orderData = data.orders.find(o => o.orderNo === order.value.orderNo)
+      if (orderData) {
+        orderData.status = '已取消'
+        localStorage.setItem(storageKey, JSON.stringify(data))
+        order.value.status = '已取消'
+        ElMessage.success('订单已取消')
+      }
+    }
+  } catch (error) {
+    // 用户取消操作
+  }
 }
 
 // 加载数据

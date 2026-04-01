@@ -57,8 +57,8 @@ export const getOrders = async (params = {}) => {
     orders = orders.filter(o => o.customerName.includes(params.customerName))
   }
 
-  // 排序
-  orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+  // 排序 - 默认按承诺交期从小到大排序
+  orders.sort((a, b) => new Date(a.deliveryDate) - new Date(b.deliveryDate))
 
   // 分页
   const page = params.page || 1
@@ -86,9 +86,55 @@ export const getOrderDetail = async (orderNo) => {
 }
 
 // 订单预处理
+// 获取预处理规则
+export const getPreprocessRules = () => {
+  const defaultRules = {
+    materialCheck: {
+      level: 'KEY',
+      keyMaterials: ['板材', '封边带']
+    },
+    infoCheck: {
+      checkBOM: true,
+      checkCustomer: true,
+      checkAddress: false
+    },
+    techCheck: {
+      checkSplit: true,
+      checkDrawing: false,
+      checkProcessRoute: true,
+      checkSize: true,
+      minLength: 100,
+      maxLength: 2800,
+      minWidth: 100,
+      maxWidth: 1200,
+      minThickness: 5,
+      maxThickness: 25
+    },
+    deliveryCheck: {
+      checkFeasibility: true,
+      minLeadTime: 3,
+      allowDelay: 2,
+      autoPriority: true
+    },
+    other: {
+      skipAudited: true,
+      detailedLog: false
+    }
+  }
+  
+  const savedRules = localStorage.getItem('preprocess_rules')
+  if (savedRules) {
+    return JSON.parse(savedRules)
+  }
+  return defaultRules
+}
+
 export const preprocessOrders = async (params) => {
   await delay(1000) // 模拟较长时间处理
   const data = getData()
+  
+  // 获取预处理规则
+  const rules = getPreprocessRules()
 
   let orders = data.orders.filter(o => o.status === '待审核')
   if (params.orderPoolScope === 'CUSTOM' && params.customOrderIds) {
@@ -180,23 +226,61 @@ export const preprocessOrders = async (params) => {
   orders.forEach((order, index) => {
     // 模拟预处理逻辑 - 让部分订单不合格以展示效果
     // 对于批量操作，确保至少有20-30%的不合格订单
-    const isQualified = params.customOrderIds?.length > 1
-      ? Math.random() > 0.25  // 批量时75%合格率
-      : Math.random() > 0.1   // 单个时90%合格率
+    let isQualified
+    if (index === 0 && params.customOrderIds?.length > 1) {
+      // 批量操作时，第一个订单强制为不合格（物料缺料）
+      isQualified = false
+    } else {
+      isQualified = params.customOrderIds?.length > 1
+        ? Math.random() > 0.25  // 批量时75%合格率
+        : Math.random() > 0.1   // 单个时90%合格率
+    }
 
     if (isQualified) {
       order.status = '待排产'
-      qualifiedOrders.push(order)
+      qualifiedOrders.push({
+        orderNo: order.orderNo,
+        customerName: order.customerName,
+        productType: order.productType,
+        deliveryDate: order.deliveryDate,
+        priority: order.priority,
+        panelCount: order.panelCount,
+        preprocessTime: new Date().toISOString(),
+        executor: '张三'
+      })
     } else {
       order.status = '审核失败'
-      // 随机选择一个失败原因
-      const failureInfo = failureReasons[Math.floor(Math.random() * failureReasons.length)]
+      // 选择失败原因（第一个订单强制选择物料缺料）
+      let failureIndex
+      if (index === 0 && params.customOrderIds?.length > 1) {
+        failureIndex = 0 // 物料缺料
+      } else {
+        failureIndex = Math.floor(Math.random() * failureReasons.length)
+      }
+      
+      const failureInfo = failureReasons[failureIndex]
       unqualifiedOrders.push({
-        ...order,
+        orderNo: order.orderNo,
+        customerName: order.customerName,
+        productType: order.productType,
+        orderType: order.orderType,
         reason: failureInfo.reason,
         details: failureInfo.details,
         suggestion: failureInfo.suggestion,
-        checkTime: new Date().toISOString()
+        checkTime: new Date().toISOString(),
+        executor: '李四',
+        materialShortage: failureInfo.reason === '物料缺料' ? {
+          materialNo: 'MAT001',
+          materialName: '18mm子午灰颗粒板',
+          required: 45,
+          available: 30,
+          shortage: 15,
+          unit: '张',
+          warehouse: '原料仓',
+          supplier: '板材供应商A',
+          leadTime: 3,
+          estimatedArrival: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+        } : null
       })
     }
   })
@@ -204,9 +288,11 @@ export const preprocessOrders = async (params) => {
   saveData(data)
 
   return success({
+    total: orders.length,
     qualifiedOrderCount: qualifiedOrders.length,
     unqualifiedOrderCount: unqualifiedOrders.length,
-    unqualifiedOrders: unqualifiedOrders.slice(0, 20) // 返回前20个不合格订单
+    qualifiedOrders,
+    unqualifiedOrders
   })
 }
 
@@ -219,6 +305,38 @@ export const getPreprocessResult = async (orderNo) => {
     return error('订单不存在')
   }
 
+  // 模拟预处理历史记录（实际应该从后端获取）
+  const preprocessHistory = [
+    {
+      executor: '张三',
+      executeTime: '2026-03-25 14:30:00',
+      status: order.status === '待排产' ? 'QUALIFIED' : 'UNQUALIFIED',
+      infoValidation: 'PASSED',
+      splitAudit: 'PASSED',
+      materialCheck: {
+        status: order.status === '待排产' ? 'PASSED' : 'FAILED',
+        details: order.status === '待排产' ? [] : [{ material: '18mm子午灰颗粒板', shortage: 5 }]
+      },
+      priority: order.priority
+    }
+  ]
+
+  // 如果订单状态不是待审核，添加更多历史记录
+  if (order.status !== '待审核') {
+    preprocessHistory.push({
+      executor: '李四',
+      executeTime: '2026-03-24 10:15:00',
+      status: 'UNQUALIFIED',
+      infoValidation: 'FAILED',
+      splitAudit: 'PASSED',
+      materialCheck: {
+        status: 'FAILED',
+        details: [{ material: '18mm子午灰颗粒板', shortage: 8 }]
+      },
+      priority: '紧急'
+    })
+  }
+
   const result = {
     orderId: orderNo,
     status: order.status === '待排产' ? 'QUALIFIED' : 'UNQUALIFIED',
@@ -228,7 +346,11 @@ export const getPreprocessResult = async (orderNo) => {
       status: order.status === '待排产' ? 'PASSED' : 'FAILED',
       details: order.status === '待排产' ? [] : [{ material: '18mm子午灰颗粒板', shortage: 5 }]
     },
-    priority: order.priority
+    priority: order.priority,
+    // 最近一次预处理信息
+    latestPreprocess: preprocessHistory[0],
+    // 预处理历史记录
+    preprocessHistory: preprocessHistory
   }
 
   return success(result)

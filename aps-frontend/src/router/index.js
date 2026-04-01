@@ -24,6 +24,12 @@ const routes = [
     component: () => import('../views/order/PreprocessResult.vue'),
     meta: { title: '预处理结果' }
   },
+  {
+    path: '/order/preprocess-rules',
+    name: 'PreprocessRules',
+    component: () => import('../views/order/PreprocessRules.vue'),
+    meta: { title: '预处理规则' }
+  },
   // 批次规划路由
   {
     path: '/batch/plan',
@@ -111,13 +117,13 @@ const routes = [
     path: '/capacity/production-line',
     name: 'ProductionLineManage',
     component: () => import('../views/capacity/ProductionLineManage.vue'),
-    meta: { title: '产线管理' }
+    meta: { title: '标准产能设置' }
   },
   {
     path: '/capacity/process-route',
     name: 'ProcessRouteManage',
     component: () => import('../views/capacity/ProcessRouteManage.vue'),
-    meta: { title: '工艺路线' }
+    meta: { title: '生产周期设置' }
   },
   {
     path: '/capacity/work-calendar',

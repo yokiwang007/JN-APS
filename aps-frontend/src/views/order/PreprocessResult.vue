@@ -71,33 +71,114 @@
               <el-tag type="danger">{{ row.reason }}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="details" label="详细信息" min-width="200" />
+          <el-table-column prop="details" label="详细信息" min-width="200">
+            <template #default="{ row }">
+              <span>{{ row.details }}</span>
+              <el-button 
+                v-if="row.reason === '物料缺料' && row.materialShortage"
+                type="primary" 
+                link 
+                size="small"
+                @click="showMaterialShortageDetail(row)"
+                style="margin-left: 8px"
+              >
+                查看缺料明细
+              </el-button>
+            </template>
+          </el-table-column>
           <el-table-column prop="suggestion" label="处理建议" min-width="200" />
           <el-table-column prop="checkTime" label="检查时间" width="180">
             <template #default="{ row }">
               {{ row.checkTime ? new Date(row.checkTime).toLocaleString() : '-' }}
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="200">
+          <el-table-column label="操作" width="280">
             <template #default="{ row }">
               <el-button type="primary" link @click="viewDetail(row.orderNo)">
                 查看详情
               </el-button>
+              <el-button type="warning" link @click="markAsPending(row.orderNo)">
+                标记待审核
+              </el-button>
               <el-button type="success" link @click="repreprocess(row.orderNo)">
                 重新预处理
+              </el-button>
+              <el-button type="danger" link @click="cancelOrder(row)">
+                取消订单
               </el-button>
             </template>
           </el-table-column>
         </el-table>
       </el-tab-pane>
     </el-tabs>
+    
+    <!-- 缺料明细对话框 -->
+    <el-dialog
+      v-model="materialDialogVisible"
+      title="缺料分析明细"
+      width="60%"
+      :close-on-click-modal="false"
+    >
+      <div v-if="currentMaterialShortage" class="material-detail">
+        <el-descriptions :column="2" border>
+          <el-descriptions-item label="物料编号">
+            {{ currentMaterialShortage.materialNo }}
+          </el-descriptions-item>
+          <el-descriptions-item label="物料名称">
+            {{ currentMaterialShortage.materialName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="需求数量">
+            <el-tag type="warning">{{ currentMaterialShortage.required }} {{ currentMaterialShortage.unit }}</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="可用库存">
+            <el-tag type="success">{{ currentMaterialShortage.available }} {{ currentMaterialShortage.unit }}</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="缺料数量">
+            <el-tag type="danger">{{ currentMaterialShortage.shortage }} {{ currentMaterialShortage.unit }}</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="所在仓库">
+            {{ currentMaterialShortage.warehouse }}
+          </el-descriptions-item>
+          <el-descriptions-item label="供应商">
+            {{ currentMaterialShortage.supplier }}
+          </el-descriptions-item>
+          <el-descriptions-item label="采购周期">
+            {{ currentMaterialShortage.leadTime }} 天
+          </el-descriptions-item>
+          <el-descriptions-item label="预计到货时间" :span="2">
+            <el-tag type="info">{{ currentMaterialShortage.estimatedArrival }}</el-tag>
+          </el-descriptions-item>
+        </el-descriptions>
+        
+        <el-divider />
+        
+        <div style="margin-bottom: 16px">
+          <h4>缺料影响分析</h4>
+          <el-alert type="warning" :closable="false">
+            <p>当前订单因缺少 <strong>{{ currentMaterialShortage.materialName }}</strong> 无法进入排产阶段。</p>
+            <p>建议措施：</p>
+            <ul>
+              <li>立即联系供应商 <strong>{{ currentMaterialShortage.supplier }}</strong> 确认到货时间</li>
+              <li>检查其他仓库是否有可用库存</li>
+              <li>评估是否可以调整生产计划，优先处理其他订单</li>
+              <li>如到货时间可接受，预计 {{ currentMaterialShortage.estimatedArrival }} 可恢复生产</li>
+            </ul>
+          </el-alert>
+        </div>
+        
+        <div style="text-align: right">
+          <el-button @click="materialDialogVisible = false">关闭</el-button>
+          <el-button type="primary" @click="handlePurchase">发起采购申请</el-button>
+        </div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { useOrderStore } from '../../stores/order'
 
 const router = useRouter()
@@ -105,6 +186,8 @@ const orderStore = useOrderStore()
 
 const activeTab = ref('qualified')
 const allOrders = ref([])
+const materialDialogVisible = ref(false)
+const currentMaterialShortage = ref(null)
 
 // 统计数据
 const stats = computed(() => {
@@ -118,12 +201,12 @@ const stats = computed(() => {
 
 // 合格订单
 const qualifiedOrders = computed(() => {
-  return allOrders.value.filter(o => o.status === '待排产')
+  return allOrders.value.filter(o => o.status === '待排产' || o.preprocessTime)
 })
 
 // 不合格订单
 const unqualifiedOrders = computed(() => {
-  return allOrders.value.filter(o => o.status === '审核失败')
+  return allOrders.value.filter(o => o.status === '审核失败' || o.reason)
 })
 
 // 获取优先级类型
@@ -170,23 +253,114 @@ const repreprocess = async (orderNo) => {
   }
 }
 
+// 标记为待审核
+const markAsPending = async (orderNo) => {
+  try {
+    // 从localStorage获取数据
+    const storageKey = 'aps_mock_data'
+    const storedData = localStorage.getItem(storageKey)
+    if (storedData) {
+      const data = JSON.parse(storedData)
+      const order = data.orders.find(o => o.orderNo === orderNo)
+      if (order) {
+        order.status = '待审核'
+        localStorage.setItem(storageKey, JSON.stringify(data))
+        ElMessage.success('订单已标记为待审核状态')
+        loadData()
+      }
+    }
+  } catch (error) {
+    ElMessage.error('操作失败')
+  }
+}
+
+// 取消订单
+const cancelOrder = async (row) => {
+  try {
+    await ElMessageBox.confirm(
+      `确定要取消订单 ${row.orderNo} 吗？取消后将无法恢复。`,
+      '取消订单',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+    )
+    
+    // 从localStorage获取数据
+    const storageKey = 'aps_mock_data'
+    const storedData = localStorage.getItem(storageKey)
+    if (storedData) {
+      const data = JSON.parse(storedData)
+      const order = data.orders.find(o => o.orderNo === row.orderNo)
+      if (order) {
+        order.status = '已取消'
+        localStorage.setItem(storageKey, JSON.stringify(data))
+        ElMessage.success('订单已取消')
+        loadData()
+      }
+    }
+  } catch (error) {
+    // 用户取消操作
+  }
+}
+
+// 显示缺料明细
+const showMaterialShortageDetail = (row) => {
+  if (row.materialShortage) {
+    currentMaterialShortage.value = row.materialShortage
+    materialDialogVisible.value = true
+  }
+}
+
+// 发起采购申请
+const handlePurchase = () => {
+  ElMessage.success('采购申请已提交，请等待审批')
+  materialDialogVisible.value = false
+}
+
 // 加载数据
 const loadData = async () => {
-  // 优先从store的预处理结果中获取数据
-  if (orderStore.preprocessResult && orderStore.preprocessResult.unqualifiedOrders) {
+  // 优先从store的预处理结果中获取数据（来自批量预处理）
+  if (orderStore.preprocessResult && orderStore.preprocessResult.qualifiedOrders) {
+    // 使用预处理结果中的数据
+    const qualifiedFromResult = orderStore.preprocessResult.qualifiedOrders || []
+    const unqualifiedFromResult = orderStore.preprocessResult.unqualifiedOrders || []
+    
     // 合并合格和不合格订单
-    const qualifiedOrders = orderStore.orders.filter(o => o.status === '待排产')
-    const unqualifiedOrders = orderStore.preprocessResult.unqualifiedOrders
-
-    allOrders.value = [...qualifiedOrders, ...unqualifiedOrders]
+    allOrders.value = [...qualifiedFromResult, ...unqualifiedFromResult]
 
     // 如果有不合格订单,自动切换到不合格订单标签页
-    if (unqualifiedOrders.length > 0) {
+    if (unqualifiedFromResult.length > 0) {
       activeTab.value = 'unqualified'
     }
+    
+    return // 直接返回，不再从localStorage获取
+  }
+  
+  // 如果store中没有预处理结果，先获取订单列表
+  await orderStore.fetchOrders()
+  
+  // 从localStorage获取预处理结果数据
+  const storageKey = 'aps_mock_data'
+  const storedData = localStorage.getItem(storageKey)
+  if (storedData) {
+    const data = JSON.parse(storedData)
+    if (data.preprocessResults) {
+      const qualifiedFromResult = data.preprocessResults.qualifiedOrders || []
+      const unqualifiedFromResult = data.preprocessResults.unqualifiedOrders || []
+      
+      allOrders.value = [...qualifiedFromResult, ...unqualifiedFromResult]
+      
+      if (unqualifiedFromResult.length > 0) {
+        activeTab.value = 'unqualified'
+      }
+    } else {
+      // 如果没有预处理结果数据，使用订单数据
+      allOrders.value = orderStore.orders
+    }
   } else {
-    // 如果没有预处理结果,获取所有订单
-    await orderStore.fetchOrders()
+    // 如果没有localStorage数据，使用订单数据
     allOrders.value = orderStore.orders
   }
 }

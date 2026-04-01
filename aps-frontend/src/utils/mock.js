@@ -40,7 +40,7 @@ export const generateOrders = (count = 200) => {
   const productTypes = ['衣柜', '橱柜', '电视柜', '书柜', '鞋柜']
   const productWeights = [0.4, 0.3, 0.2, 0.05, 0.05]
   const statuses = ['待审核', '技术审核中', '齐套检查中', '待排产', '已排产', '生产中', '已完成', '已取消']
-  const statusWeights = [0.2, 0.05, 0.05, 0.3, 0.2, 0.15, 0.04, 0.01]
+  const statusWeights = [0.5, 0.05, 0.05, 0.2, 0.1, 0.05, 0.03, 0.02] // 增加待审核比例到50%
   const priorities = ['普通', '紧急', '特急']
   const priorityWeights = [0.7, 0.25, 0.05]
   const orderTypes = ['标准订单', '加急订单', '补件订单']
@@ -282,6 +282,7 @@ export const generateProductionLines = () => {
       lineName: '电子锯线1',
       lineType: '开料线',
       standardCapacity: 500,
+      standardCapacityArea: 150,
       status: '正常',
       workshop: '车间A',
       mainEquipments: ['电子锯1', '电子锯2']
@@ -291,6 +292,7 @@ export const generateProductionLines = () => {
       lineName: '电子锯线2',
       lineType: '开料线',
       standardCapacity: 450,
+      standardCapacityArea: 135,
       status: '正常',
       workshop: '车间A',
       mainEquipments: ['电子锯3', '电子锯4']
@@ -300,6 +302,7 @@ export const generateProductionLines = () => {
       lineName: '封边线A',
       lineType: '封边线',
       standardCapacity: 600,
+      standardCapacityArea: 180,
       status: '正常',
       workshop: '车间A',
       mainEquipments: ['封边机1', '封边机2']
@@ -309,6 +312,7 @@ export const generateProductionLines = () => {
       lineName: '封边线B',
       lineType: '封边线',
       standardCapacity: 550,
+      standardCapacityArea: 165,
       status: '维护中',
       workshop: '车间B',
       mainEquipments: ['封边机3', '封边机4']
@@ -318,6 +322,7 @@ export const generateProductionLines = () => {
       lineName: '钻孔线',
       lineType: '钻孔线',
       standardCapacity: 700,
+      standardCapacityArea: 210,
       status: '正常',
       workshop: '车间A',
       mainEquipments: ['六面钻1', '六面钻2']
@@ -327,6 +332,7 @@ export const generateProductionLines = () => {
       lineName: '包装线',
       lineType: '包装线',
       standardCapacity: 800,
+      standardCapacityArea: 240,
       status: '正常',
       workshop: '车间B',
       mainEquipments: ['包装机1', '包装机2']
@@ -339,35 +345,47 @@ export const generateProcessRoutes = () => {
   return [
     {
       routeId: 'ROUTE001',
+      routeName: '标准柜体工艺',
       panelType: '柜体板',
       processSequence: ['开料', '封边', '钻孔', '质检'],
       standardWorkTime: 15,
       requiredEquipments: ['电子锯', '封边机', '六面钻'],
-      processRequirement: null
+      processRequirement: null,
+      productionCycle: 3,
+      deliveryCommitment: 5
     },
     {
       routeId: 'ROUTE002',
+      routeName: '吸塑移门工艺',
       panelType: '门板',
       processSequence: ['开料', '铣型', '封边', '质检'],
       standardWorkTime: 20,
       requiredEquipments: ['电子锯', '加工中心', '封边机'],
-      processRequirement: '需要五轴加工中心'
+      processRequirement: '需要五轴加工中心',
+      productionCycle: 5,
+      deliveryCommitment: 7
     },
     {
       routeId: 'ROUTE003',
+      routeName: '衣柜12厘背板工艺',
       panelType: '背板',
       processSequence: ['开料', '封边', '质检'],
       standardWorkTime: 10,
       requiredEquipments: ['电子锯', '封边机'],
-      processRequirement: null
+      processRequirement: null,
+      productionCycle: 2,
+      deliveryCommitment: 4
     },
     {
       routeId: 'ROUTE004',
+      routeName: '装饰条镂铣工艺',
       panelType: '装饰条',
       processSequence: ['开料', '镂铣', '质检'],
       standardWorkTime: 25,
       requiredEquipments: ['电子锯', '镂铣机'],
-      processRequirement: '需要镂铣设备'
+      processRequirement: '需要镂铣设备',
+      productionCycle: 4,
+      deliveryCommitment: 6
     }
   ]
 }
@@ -555,6 +573,148 @@ const weightedRandom = (weights) => {
   return weights.length - 1
 }
 
+// 生成预处理结果数据
+export const generatePreprocessResults = (orders) => {
+  // 筛选待审核订单
+  const pendingOrders = orders.filter(o => o.status === '待审核')
+  
+  // 选择足够多的订单进行预处理（至少20个，最多50个）
+  const minPreprocessCount = 20
+  const maxPreprocessCount = 50
+  const preprocessCount = Math.min(
+    Math.max(minPreprocessCount, Math.floor(pendingOrders.length * 0.4)),
+    Math.min(maxPreprocessCount, pendingOrders.length)
+  )
+  const selectedOrders = pendingOrders.slice(0, preprocessCount)
+  
+  const qualifiedOrders = []
+  const unqualifiedOrders = []
+  
+  // 定义失败原因类型
+  const failureReasons = [
+    {
+      reason: '物料缺料',
+      details: '18mm子午灰颗粒板库存不足，缺料15张',
+      suggestion: '联系采购部门补货或调整生产计划',
+      materialShortage: {
+        materialNo: 'MAT001',
+        materialName: '18mm子午灰颗粒板',
+        required: 45,
+        available: 30,
+        shortage: 15,
+        unit: '张',
+        warehouse: '原料仓',
+        supplier: '板材供应商A',
+        leadTime: 3,
+        estimatedArrival: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+      }
+    },
+    {
+      reason: '物料缺料',
+      details: '1mm子午灰ABS封边带库存不足，缺料200米',
+      suggestion: '检查辅料仓库存，及时补货',
+      materialShortage: {
+        materialNo: 'MAT007',
+        materialName: '1mm子午灰ABS封边带',
+        required: 1200,
+        available: 1000,
+        shortage: 200,
+        unit: '米',
+        warehouse: '辅料仓',
+        supplier: '封边带供应商B',
+        leadTime: 2,
+        estimatedArrival: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+      }
+    },
+    {
+      reason: '拆单数据缺失',
+      details: '订单缺少背板尺寸数据',
+      suggestion: '联系设计部门补充拆单数据'
+    },
+    {
+      reason: '信息不完整',
+      details: '客户安装地址信息缺失，无法安排配送',
+      suggestion: '联系销售人员补全客户信息'
+    },
+    {
+      reason: '尺寸超出加工范围',
+      details: '板件尺寸1250×800mm超出电子锯加工范围(最大1220mm)',
+      suggestion: '调整板件尺寸或使用其他加工方式'
+    },
+    {
+      reason: '交期异常',
+      details: '订单交货期仅剩3天，生产周期不足',
+      suggestion: '标记为紧急订单，优先安排生产'
+    }
+  ]
+  
+  // 处理选中的订单
+  selectedOrders.forEach((order, index) => {
+    // 确保至少有3个物料缺料的不合格订单和足够的合格订单
+    let isQualified
+    if (index < 3) {
+      // 前3个订单强制为物料缺料的不合格订单
+      isQualified = false
+    } else if (index < 15) {
+      // 接下来的12个订单强制为合格订单
+      isQualified = true
+    } else {
+      // 其他订单随机决定是否合格（60%合格率）
+      isQualified = Math.random() > 0.4
+    }
+    
+    if (isQualified) {
+      // 合格订单 - 修改订单状态
+      order.status = '待排产'
+      qualifiedOrders.push({
+        orderNo: order.orderNo,
+        customerName: order.customerName,
+        productType: order.productType,
+        deliveryDate: order.deliveryDate,
+        priority: order.priority,
+        panelCount: order.panelCount,
+        preprocessTime: new Date().toISOString(),
+        executor: generateChineseName()
+      })
+    } else {
+      // 不合格订单 - 修改订单状态
+      order.status = '审核失败'
+      
+      // 选择失败原因（前3个订单强制选择物料缺料）
+      let failureIndex
+      if (index < 3) {
+        failureIndex = index % 2 // 选择两种物料缺料之一
+      } else {
+        failureIndex = Math.floor(Math.random() * failureReasons.length)
+      }
+      
+      const failureInfo = failureReasons[failureIndex]
+      
+      unqualifiedOrders.push({
+        orderNo: order.orderNo,
+        customerName: order.customerName,
+        productType: order.productType,
+        orderType: order.orderType,
+        reason: failureInfo.reason,
+        details: failureInfo.details,
+        suggestion: failureInfo.suggestion,
+        checkTime: new Date().toISOString(),
+        executor: generateChineseName(),
+        materialShortage: failureInfo.materialShortage || null
+      })
+    }
+  })
+  
+  return {
+    total: selectedOrders.length,
+    qualifiedCount: qualifiedOrders.length,
+    unqualifiedCount: unqualifiedOrders.length,
+    qualifiedOrders,
+    unqualifiedOrders,
+    timestamp: new Date().toISOString()
+  }
+}
+
 // 初始化所有演示数据
 export const initMockData = () => {
   const orders = generateOrders(200)
@@ -564,6 +724,7 @@ export const initMockData = () => {
   const processRoutes = generateProcessRoutes()
   const strategies = generateStrategies()
   const materials = generateMaterials()
+  const preprocessResults = generatePreprocessResults(orders)
 
   return {
     orders,
@@ -572,6 +733,7 @@ export const initMockData = () => {
     productionLines,
     processRoutes,
     strategies,
-    materials
+    materials,
+    preprocessResults
   }
 }

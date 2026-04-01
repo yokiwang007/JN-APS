@@ -3,7 +3,7 @@
     <el-card shadow="never">
       <template #header>
         <div class="card-header">
-          <span>工艺路线管理</span>
+          <span>生产周期设置</span>
           <el-button type="primary" size="small" @click="refreshData">
             <el-icon><Refresh /></el-icon>
             刷新
@@ -13,6 +13,8 @@
       
       <el-table :data="processRoutes" v-loading="loading" stripe>
         <el-table-column prop="routeId" label="路线编号" width="120" />
+        
+        <el-table-column prop="routeName" label="工艺路线名称" width="180" />
         
         <el-table-column prop="panelType" label="适用部件类型" width="150">
           <template #default="{ row }">
@@ -35,6 +37,18 @@
         <el-table-column prop="standardWorkTime" label="标准工时" width="120">
           <template #default="{ row }">
             {{ row.standardWorkTime }} 分钟
+          </template>
+        </el-table-column>
+        
+        <el-table-column prop="productionCycle" label="生产周期" width="120">
+          <template #default="{ row }">
+            {{ row.productionCycle || '-' }} 天
+          </template>
+        </el-table-column>
+        
+        <el-table-column prop="deliveryCommitment" label="对外承诺交期" width="140">
+          <template #default="{ row }">
+            {{ row.deliveryCommitment || '-' }} 天
           </template>
         </el-table-column>
         
@@ -68,10 +82,14 @@
     <!-- 编辑对话框 -->
     <el-dialog
       v-model="editDialogVisible"
-      title="编辑工艺路线"
+      title="编辑生产周期"
       width="700px"
     >
       <el-form :model="editForm" label-width="120px">
+        <el-form-item label="工艺路线名称">
+          <el-input v-model="editForm.routeName" placeholder="请输入工艺路线名称" />
+        </el-form-item>
+        
         <el-form-item label="适用部件类型">
           <el-select v-model="editForm.panelType" style="width: 100%">
             <el-option label="柜体板" value="柜体板" />
@@ -115,6 +133,16 @@
         <el-form-item label="标准工时">
           <el-input-number v-model="editForm.standardWorkTime" :min="1" :max="120" />
           <span style="margin-left: 8px; color: #909399">分钟</span>
+        </el-form-item>
+        
+        <el-form-item label="生产周期">
+          <el-input-number v-model="editForm.productionCycle" :min="1" :max="30" />
+          <span style="margin-left: 8px; color: #909399">天</span>
+        </el-form-item>
+        
+        <el-form-item label="对外承诺交期">
+          <el-input-number v-model="editForm.deliveryCommitment" :min="1" :max="60" />
+          <span style="margin-left: 8px; color: #909399">天</span>
         </el-form-item>
         
         <el-form-item label="所需设备">

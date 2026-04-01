@@ -43,7 +43,7 @@
               <el-table-column prop="orderNo" label="订单号" width="160" />
               <el-table-column prop="customerName" label="客户" width="100" />
               <el-table-column prop="productType" label="产品" width="80" />
-              <el-table-column prop="deliveryDate" label="交期" width="100" />
+              <el-table-column prop="deliveryDate" label="交期" width="120" />
               <el-table-column label="操作" width="80">
                 <template #default="{ row }">
                   <el-button type="primary" link @click="viewOrder(row.orderNo)">
@@ -86,20 +86,26 @@
       <el-card shadow="never" style="margin-top: 20px">
         <template #header>
           <div class="card-header">
-            <span>板件清单 ({{ panels.length }} 件)</span>
+            <span>工件清单 ({{ panels.length }} 件)</span>
             <el-button type="primary" size="small" @click="exportPanels">
               <el-icon><Download /></el-icon>
-              导出
+              导出Excel
             </el-button>
           </div>
         </template>
         
-        <!-- 筛选 -->
-        <div style="margin-bottom: 16px">
-          <el-select v-model="panelFilter.type" placeholder="部件类型" clearable style="width: 150px; margin-right: 10px">
+        <!-- 筛选和显示方式 -->
+        <div style="margin-bottom: 16px; display: flex; align-items: center; gap: 10px">
+          <el-select v-model="panelFilter.type" placeholder="部件类型" clearable style="width: 150px">
             <el-option label="柜体板" value="柜体板" />
             <el-option label="门板" value="门板" />
             <el-option label="背板" value="背板" />
+            <el-option label="装饰条" value="装饰条" />
+          </el-select>
+          <el-select v-model="panelFilter.color" placeholder="花色" clearable style="width: 150px">
+            <el-option label="子午灰" value="子午灰" />
+            <el-option label="黑胡桃" value="黑胡桃" />
+            <el-option label="羊绒灰" value="羊绒灰" />
           </el-select>
           <el-input
             v-model="panelFilter.orderNo"
@@ -107,25 +113,137 @@
             clearable
             style="width: 200px"
           />
+          <el-divider direction="vertical" />
+          <el-radio-group v-model="displayMode">
+            <el-radio-button label="list">列表视图</el-radio-button>
+            <el-radio-button label="group">分组视图</el-radio-button>
+          </el-radio-group>
         </div>
         
-        <el-table :data="filteredPanels" stripe max-height="400">
+        <!-- 列表视图 -->
+        <el-table v-if="displayMode === 'list'" :data="filteredPanels" stripe max-height="400">
           <el-table-column prop="panelNo" label="板件号" width="200" />
           <el-table-column prop="orderNo" label="订单号" width="160" />
           <el-table-column prop="panelType" label="部件类型" width="100" />
-          <el-table-column label="尺寸" width="150">
+          <el-table-column prop="itemType" label="工件类型" width="90">
             <template #default="{ row }">
-              {{ row.length }} × {{ row.width }} mm
+              <el-tag :type="row.itemType === '板件' ? 'primary' : 'success'" size="small">
+                {{ row.itemType || '板件' }}
+              </el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="thickness" label="厚度" width="80" />
-          <el-table-column prop="edgeRequirement" label="封边要求" width="150" />
+          <el-table-column label="尺寸" width="150">
+            <template #default="{ row }">
+              {{ row.length && row.width ? `${row.length} × ${row.width} mm` : '-' }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="thickness" label="厚度(mm)" width="100">
+            <template #default="{ row }">
+              {{ row.thickness || '-' }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="color" label="花色" width="100">
+            <template #default="{ row }">
+              {{ row.color || '-' }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="material" label="材质/规格" width="150" />
+          <el-table-column prop="edgeRequirement" label="封边要求" width="150">
+            <template #default="{ row }">
+              {{ row.edgeRequirement || '-' }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="area" label="面积(m²)" width="100">
+            <template #default="{ row }">
+              {{ row.area || '-' }}
+            </template>
+          </el-table-column>
           <el-table-column label="工艺路径">
             <template #default="{ row }">
-              {{ row.processRoute.join(' → ') }}
+              {{ row.processRoute ? row.processRoute.join(' → ') : '-' }}
             </template>
           </el-table-column>
         </el-table>
+        
+        <!-- 分组视图 -->
+        <div v-if="displayMode === 'group'" style="max-height: 400px; overflow-y: auto">
+          <el-collapse v-model="expandedGroups">
+            <el-collapse-item
+              v-for="(group, index) in groupedPanels"
+              :key="index"
+              :name="index"
+            >
+              <template #title>
+                <div style="display: flex; align-items: center; width: 100%; flex-wrap: wrap">
+                  <el-tag :type="group.itemType === '板件' ? 'primary' : 'success'" style="margin-right: 8px">
+                    {{ group.itemType || '板件' }}
+                  </el-tag>
+                  <span style="font-weight: 500; margin-right: 16px">
+                    {{ group.panelType }}
+                  </span>
+                  <span v-if="group.color" style="color: #909399; margin-right: 16px">
+                    {{ group.color }}
+                  </span>
+                  <span v-if="group.thickness" style="color: #909399; margin-right: 16px">
+                    {{ group.thickness }}mm
+                  </span>
+                  <el-divider direction="vertical" />
+                  <span style="color: #409eff; margin-right: 16px">
+                    数量: {{ group.count }} 件
+                  </span>
+                  <span v-if="group.totalArea" style="color: #67c23a; margin-right: 16px">
+                    面积: {{ group.totalArea }} m²
+                  </span>
+                  <template v-if="group.processRoutes && group.processRoutes.length > 0">
+                    <el-divider direction="vertical" />
+                    <span style="color: #909399; margin-right: 8px">工艺路径:</span>
+                    <el-tag
+                      v-for="(route, idx) in group.processRoutes"
+                      :key="idx"
+                      size="small"
+                      type="info"
+                      style="margin-right: 4px"
+                    >
+                      {{ route }}
+                    </el-tag>
+                  </template>
+                </div>
+              </template>
+              
+              <!-- 分组明细 -->
+              <el-table :data="group.items" stripe size="small">
+                <el-table-column prop="panelNo" label="板件号" width="180" />
+                <el-table-column prop="orderNo" label="订单号" width="140" />
+                <el-table-column label="尺寸" width="120">
+                  <template #default="{ row }">
+                    {{ row.length && row.width ? `${row.length} × ${row.width} mm` : '-' }}
+                  </template>
+                </el-table-column>
+                <el-table-column prop="thickness" label="厚度" width="80">
+                  <template #default="{ row }">
+                    {{ row.thickness || '-' }}
+                  </template>
+                </el-table-column>
+                <el-table-column prop="color" label="花色" width="100">
+                  <template #default="{ row }">
+                    {{ row.color || '-' }}
+                  </template>
+                </el-table-column>
+                <el-table-column prop="material" label="材质/规格" width="150" />
+                <el-table-column prop="edgeRequirement" label="封边要求" width="120">
+                  <template #default="{ row }">
+                    {{ row.edgeRequirement || '-' }}
+                  </template>
+                </el-table-column>
+                <el-table-column prop="area" label="面积(m²)" width="100">
+                  <template #default="{ row }">
+                    {{ row.area || '-' }}
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-collapse-item>
+          </el-collapse>
+        </div>
       </el-card>
     </div>
     
@@ -170,9 +288,12 @@ const batch = ref({})
 const orders = ref([])
 const panels = ref([])
 const imageDialogVisible = ref(false)
+const displayMode = ref('list')
+const expandedGroups = ref([0])
 
 const panelFilter = ref({
   type: '',
+  color: '',
   orderNo: ''
 })
 
@@ -182,10 +303,64 @@ const filteredPanels = computed(() => {
   if (panelFilter.value.type) {
     result = result.filter(p => p.panelType === panelFilter.value.type)
   }
+  if (panelFilter.value.color) {
+    result = result.filter(p => p.color === panelFilter.value.color)
+  }
   if (panelFilter.value.orderNo) {
     result = result.filter(p => p.orderNo.includes(panelFilter.value.orderNo))
   }
   return result
+})
+
+// 分组后的板件
+const groupedPanels = computed(() => {
+  const groups = {}
+  
+  filteredPanels.value.forEach(panel => {
+    const key = `${panel.panelType}_${panel.color || '无'}_${panel.thickness || '无'}`
+    
+    if (!groups[key]) {
+      groups[key] = {
+        panelType: panel.panelType,
+        color: panel.color,
+        thickness: panel.thickness,
+        itemType: panel.itemType || '板件',
+        count: 0,
+        totalArea: 0,
+        processRoutes: [],
+        items: []
+      }
+    }
+    
+    groups[key].count++
+    groups[key].totalArea += parseFloat(panel.area) || 0
+    groups[key].items.push(panel)
+    
+    if (panel.processRoute) {
+      const routeStr = panel.processRoute.join(' → ')
+      if (!groups[key].processRoutes.includes(routeStr)) {
+        groups[key].processRoutes.push(routeStr)
+      }
+    }
+  })
+  
+  return Object.values(groups)
+    .map(group => ({
+      ...group,
+      totalArea: group.totalArea.toFixed(2)
+    }))
+    .sort((a, b) => {
+      // 先按部件类型排序
+      if (a.panelType !== b.panelType) {
+        return a.panelType.localeCompare(b.panelType)
+      }
+      // 再按花色排序
+      if (a.color !== b.color) {
+        return (a.color || '无').localeCompare(b.color || '无')
+      }
+      // 最后按厚度排序
+      return (a.thickness || 0) - (b.thickness || 0)
+    })
 })
 
 // 获取状态类型

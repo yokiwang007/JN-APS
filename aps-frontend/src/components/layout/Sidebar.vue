@@ -26,6 +26,7 @@
         </template>
         <el-menu-item index="/order/list">订单列表</el-menu-item>
         <el-menu-item index="/order/preprocess-result">预处理结果</el-menu-item>
+        <el-menu-item index="/order/preprocess-rules">预处理规则</el-menu-item>
       </el-sub-menu>
       
       <!-- 批次规划 -->
@@ -74,8 +75,8 @@
           <el-icon><Operation /></el-icon>
           <span>产能管理</span>
         </template>
-        <el-menu-item index="/capacity/production-line">产线管理</el-menu-item>
-        <el-menu-item index="/capacity/process-route">工艺路线</el-menu-item>
+        <el-menu-item index="/capacity/production-line">标准产能设置</el-menu-item>
+        <el-menu-item index="/capacity/process-route">生产周期设置</el-menu-item>
         <el-menu-item index="/capacity/work-calendar">工作日历</el-menu-item>
         <el-menu-item index="/capacity/equipment">设备配置</el-menu-item>
       </el-sub-menu>
