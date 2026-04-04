@@ -405,16 +405,21 @@ const toggleSection = (sectionKey) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 20px 8px;
+  padding: 10px 16px 10px 20px;
   cursor: pointer;
   user-select: none;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
   border-radius: 6px;
   margin: 0 12px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid transparent;
 }
 
 .nav-section-header:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
+  border-left-color: rgba(24, 144, 255, 0.5);
+  transform: translateX(2px);
 }
 
 .nav-section-header--collapsed .nav-section-icon {
@@ -422,21 +427,51 @@ const toggleSection = (sectionKey) => {
 }
 
 .nav-section-title {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.2;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
+  padding-left: 12px;
+}
+
+.nav-section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: rgba(24, 144, 255, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(24, 144, 255, 0.6);
+}
+
+.nav-section-header:hover .nav-section-title {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.nav-section-header:hover .nav-section-title::before {
+  background: #1890ff;
+  box-shadow: 0 0 8px rgba(24, 144, 255, 0.8);
 }
 
 .nav-section-icon {
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.45);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.nav-section-header:hover .nav-section-icon {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .nav-section-content {
   overflow: hidden;
+  padding: 4px 0;
 }
 
 /* 折叠动画 */

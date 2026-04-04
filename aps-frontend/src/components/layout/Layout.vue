@@ -4,14 +4,19 @@
     <el-aside :width="sidebarWidth" class="layout-aside">
       <Sidebar />
     </el-aside>
-    
+
     <!-- 主内容区 -->
     <el-container>
       <!-- 顶部导航 -->
       <el-header height="60px" class="layout-header">
         <Header />
       </el-header>
-      
+
+      <!-- 多标签页 -->
+      <div class="layout-tabs">
+        <TabsView />
+      </div>
+
       <!-- 内容区 -->
       <el-main class="layout-main">
         <router-view :key="route.fullPath" />
@@ -21,15 +26,35 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
+import TabsView from './TabsView.vue'
 import { useLayoutStore } from '@/stores/layout'
 
 const route = useRoute()
 const layoutStore = useLayoutStore()
 const sidebarWidth = computed(() => layoutStore.sidebarWidth)
+
+// 监听路由变化,自动添加标签页
+watch(
+  () => route.path,
+  (newPath) => {
+    // 获取路由元信息
+    const meta = route.meta || {}
+    const title = meta.title || route.name || '未知页面'
+    const icon = meta.icon || null
+
+    // 添加标签页
+    layoutStore.addTab({
+      path: newPath,
+      title: title,
+      icon: icon
+    })
+  },
+  { immediate: true }
+)
 </script>
 
 <style scoped>
@@ -52,6 +77,11 @@ const sidebarWidth = computed(() => layoutStore.sidebarWidth)
   padding: 0 20px;
   display: flex;
   align-items: center;
+}
+
+.layout-tabs {
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .layout-main {
