@@ -4,16 +4,39 @@ import { initMockData } from './mock'
 // 本地存储键名
 const STORAGE_KEY = 'aps_mock_data'
 
-// 获取或初始化数据
+// 获取或初始化数据（损坏、空 orders 时自动重建，避免整站无演示数据）
 const getData = () => {
-  let data = localStorage.getItem(STORAGE_KEY)
-  if (!data) {
-    data = initMockData()
+  const raw = localStorage.getItem(STORAGE_KEY)
+  if (!raw) {
+    const data = initMockData()
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-  } else {
-    data = JSON.parse(data)
+    return data
   }
-  return data
+  try {
+    const data = JSON.parse(raw)
+    if (!data || !Array.isArray(data.orders) || data.orders.length === 0) {
+      const fresh = initMockData()
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh))
+      return fresh
+    }
+    return data
+  } catch {
+    const fresh = initMockData()
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh))
+    return fresh
+  }
+}
+
+/** 应用启动时调用一次，确保订单/批次等主数据已落盘（不打开订单页也有演示数据） */
+export const ensureDemoDataInitialized = () => {
+  getData()
+}
+
+/** 与订单列表、订单详情共用的本地演示数据源（orders / panels 等） */
+export const readMockStore = () => getData()
+
+export const writeMockStore = (data) => {
+  if (data) saveData(data)
 }
 
 // 保存数据

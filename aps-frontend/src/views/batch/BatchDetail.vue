@@ -115,8 +115,8 @@
           />
           <el-divider direction="vertical" />
           <el-radio-group v-model="displayMode">
-            <el-radio-button label="list">列表视图</el-radio-button>
-            <el-radio-button label="group">分组视图</el-radio-button>
+            <el-radio-button value="list">列表视图</el-radio-button>
+            <el-radio-button value="group">分组视图</el-radio-button>
           </el-radio-group>
         </div>
         

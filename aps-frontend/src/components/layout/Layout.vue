@@ -14,7 +14,7 @@
       
       <!-- 内容区 -->
       <el-main class="layout-main">
-        <router-view />
+        <router-view :key="route.fullPath" />
       </el-main>
     </el-container>
   </el-container>
@@ -22,10 +22,12 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
 import { useLayoutStore } from '@/stores/layout'
 
+const route = useRoute()
 const layoutStore = useLayoutStore()
 const sidebarWidth = computed(() => layoutStore.sidebarWidth)
 </script>
@@ -36,6 +38,9 @@ const sidebarWidth = computed(() => layoutStore.sidebarWidth)
 }
 
 .layout-aside {
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
   background: #001529;
   overflow: hidden;
   transition: width 0.3s ease;
@@ -50,8 +55,12 @@ const sidebarWidth = computed(() => layoutStore.sidebarWidth)
 }
 
 .layout-main {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
   background: #f0f2f5;
   padding: 20px;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 </style>

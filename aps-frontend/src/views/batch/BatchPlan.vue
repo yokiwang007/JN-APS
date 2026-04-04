@@ -3,8 +3,8 @@
     <!-- 模式选择 -->
     <el-card shadow="never" style="margin-bottom: 20px">
       <el-radio-group v-model="planMode" size="large">
-        <el-radio-button label="auto">自动规划</el-radio-button>
-        <el-radio-button label="manual">手工规划</el-radio-button>
+        <el-radio-button value="auto">自动规划</el-radio-button>
+        <el-radio-button value="manual">手工规划</el-radio-button>
       </el-radio-group>
     </el-card>
     

@@ -49,27 +49,27 @@
           <template #header>
             <span>调整类型</span>
           </template>
-          
+
           <el-radio-group v-model="adjustType" style="width: 100%">
-            <el-radio label="DELAY" style="display: block; margin-bottom: 10px">
+            <el-radio value="DELAY" style="display: block; margin-bottom: 10px">
               <div>
                 <div style="font-weight: bold">延期</div>
                 <div style="font-size: 12px; color: #909399">推迟批次生产时间</div>
               </div>
             </el-radio>
-            <el-radio label="TRANSFER" style="display: block; margin-bottom: 10px">
+            <el-radio value="TRANSFER" style="display: block; margin-bottom: 10px">
               <div>
                 <div style="font-weight: bold">转移产线</div>
                 <div style="font-size: 12px; color: #909399">调整到其他产线生产</div>
               </div>
             </el-radio>
-            <el-radio label="INSERT" style="display: block; margin-bottom: 10px">
+            <el-radio value="INSERT" style="display: block; margin-bottom: 10px">
               <div>
                 <div style="font-weight: bold">紧急插单</div>
                 <div style="font-size: 12px; color: #909399">插入紧急订单</div>
               </div>
             </el-radio>
-            <el-radio label="CANCEL" style="display: block">
+            <el-radio value="CANCEL" style="display: block">
               <div>
                 <div style="font-weight: bold">取消批次</div>
                 <div style="font-size: 12px; color: #909399">取消该批次生产</div>
@@ -120,8 +120,8 @@
             <el-form label-width="100px">
               <el-form-item label="插单位置">
                 <el-radio-group v-model="adjustParams.position">
-                  <el-radio label="before">当前批次前</el-radio>
-                  <el-radio label="after">当前批次后</el-radio>
+                  <el-radio value="before">当前批次前</el-radio>
+                  <el-radio value="after">当前批次后</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-form>

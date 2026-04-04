@@ -28,9 +28,9 @@
         
         <el-form-item label="检查级别">
           <el-radio-group v-model="rulesForm.materialCheck.level">
-            <el-radio label="NONE">不检查</el-radio>
-            <el-radio label="KEY">检查关键物料</el-radio>
-            <el-radio label="ALL">检查全部物料</el-radio>
+            <el-radio value="NONE">不检查</el-radio>
+            <el-radio value="KEY">检查关键物料</el-radio>
+            <el-radio value="ALL">检查全部物料</el-radio>
           </el-radio-group>
         </el-form-item>
         
