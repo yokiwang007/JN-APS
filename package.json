@@ -1,0 +1,20 @@
+{
+  "name": "jn-aps",
+  "version": "1.0.0",
+  "private": true,
+  "description": "JN-APS 先进计划排程系统",
+  "scripts": {
+    "build": "cd aps-frontend && npm install && npm run build",
+    "dev": "cd aps-frontend && npm run dev"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "aps",
+    "vue3",
+    "vite"
+  ],
+  "author": "",
+  "license": "MIT"
+}
