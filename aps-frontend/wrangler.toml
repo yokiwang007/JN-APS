@@ -1,0 +1,16 @@
+# Cloudflare Pages 配置文件
+# 用于本地预览和部署配置
+
+name = "aps-frontend"
+compatibility_date = "2024-01-01"
+
+# Pages 配置
+[env.production]
+name = "aps-frontend"
+
+# 构建命令
+pages_build_output_dir = "dist"
+
+# 环境变量(可选)
+[vars]
+NODE_ENV = "production"
