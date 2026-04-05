@@ -307,15 +307,15 @@ const isCollapsed = computed(() => layoutStore.isCollapsed)
 
 // 分组展开/收缩状态
 const sectionStates = reactive({
-  order: true,
-  coarseSchedule: true,
-  batch: true,
-  schedule: true,
-  production: true,
-  fulfillment: true,
-  monitor: true,
-  strategy: true,
-  capacity: true
+  order: true,           // 订单管理默认展开
+  coarseSchedule: false, // 粗排程默认收缩
+  batch: false,          // 批次规划默认收缩
+  schedule: false,       // 细排程默认收缩
+  production: false,     // 生产执行默认收缩
+  fulfillment: false,    // 齐套管理默认收缩
+  monitor: false,        // 监控调整默认收缩
+  strategy: false,       // 策略配置默认收缩
+  capacity: false        // 产能管理默认收缩
 })
 
 // 切换分组展开/收缩状态
@@ -405,7 +405,7 @@ const toggleSection = (sectionKey) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px 10px 20px;
+  padding: 12px 16px 12px 20px;
   cursor: pointer;
   user-select: none;
   transition: all 0.2s ease;
@@ -427,10 +427,10 @@ const toggleSection = (sectionKey) => {
 }
 
 .nav-section-title {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   position: relative;
@@ -522,7 +522,7 @@ const toggleSection = (sectionKey) => {
 
 .nav-item--sub {
   height: 40px;
-  padding-left: 20px;
+  padding-left: 32px;
 }
 
 .nav-item:hover {
@@ -549,6 +549,7 @@ const toggleSection = (sectionKey) => {
 
 .nav-text {
   font-size: 14px;
+  font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
