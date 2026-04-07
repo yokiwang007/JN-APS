@@ -247,7 +247,7 @@ const loadRules = () => {
     }
   ]
 
-  console.log('✓ 加载拆单规则:', rules.value.length, '条')
+  console.log('✓ 加载拆解规则:', rules.value.length, '条')
 }
 
 // 新增规则

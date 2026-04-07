@@ -42,7 +42,7 @@
             </RouterLink>
             <RouterLink to="/order/split-rules" class="nav-item nav-item--sub" active-class="nav-item--active">
               <el-icon class="nav-icon"><Notebook /></el-icon>
-              <span v-show="!isCollapsed" class="nav-text">拆单规则</span>
+              <span v-show="!isCollapsed" class="nav-text">拆解规则</span>
             </RouterLink>
             <RouterLink to="/order/preprocess-result" class="nav-item nav-item--sub" active-class="nav-item--active">
               <el-icon class="nav-icon"><DocumentChecked /></el-icon>
@@ -266,7 +266,7 @@
             </RouterLink>
             <RouterLink to="/capacity/equipment" class="nav-item nav-item--sub" active-class="nav-item--active">
               <el-icon class="nav-icon"><Setting /></el-icon>
-              <span v-show="!isCollapsed" class="nav-text">设备配置</span>
+              <span v-show="!isCollapsed" class="nav-text">设备列表</span>
             </RouterLink>
           </div>
         </transition>

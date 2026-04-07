@@ -389,3 +389,110 @@
 2026-04-07 14:26:16:2616 info: GET /api/v2/erp-orders/OD202604009 - Fetching sales order detail
 2026-04-07 14:26:16:2616 info: Fetching sales order detail: OD202604009
 2026-04-07 14:26:16:2616 info: Sales order detail fetched: OD202604009
+2026-04-07 15:57:49:5749 info: Updating process route: PR001
+2026-04-07 15:57:49:5749 info: Process route updated successfully: PR001
+2026-04-07 15:59:58:5958 info: Updating process route: PR002
+2026-04-07 15:59:58:5958 info: Process route updated successfully: PR002
+2026-04-07 16:00:17:017 info: Updating process route: PR003
+2026-04-07 16:00:18:018 info: Process route updated successfully: PR003
+2026-04-07 16:00:39:039 info: Updating process route: PR004
+2026-04-07 16:00:39:039 info: Process route updated successfully: PR004
+2026-04-07 17:01:34:134 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-07 17:04:48:448 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-07 17:12:53:1253 info: Creating equipment: EQ165915
+2026-04-07 17:12:53:1253 info: Equipment created successfully: EQ165915
+2026-04-07 17:13:06:136 info: Creating equipment: EQ176462
+2026-04-07 17:13:06:136 info: Equipment created successfully: EQ176462
+2026-04-07 17:42:32:4232 info: Updating equipment: EQ165915
+2026-04-07 17:42:32:4232 info: Equipment updated successfully: EQ165915
+2026-04-07 17:42:51:4251 info: Updating equipment: EQ176462
+2026-04-07 17:42:51:4251 info: Equipment updated successfully: EQ176462
+2026-04-07 17:43:40:4340 info: Creating equipment: EQ006393
+2026-04-07 17:43:40:4340 info: Equipment created successfully: EQ006393
+2026-04-07 17:58:16:5816 info: Creating equipment: EQ872610
+2026-04-07 17:58:16:5816 info: Equipment created successfully: EQ872610
+2026-04-07 17:59:16:5916 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-07 17:59:40:5940 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 17:59:40:5940 info: Fetching sales orders with params:
+2026-04-07 17:59:40:5940 info: Found 10 sales orders
+2026-04-07 17:59:55:5955 info: GET /api/v2/erp-orders/OD202604009 - Fetching sales order detail
+2026-04-07 17:59:55:5955 info: Fetching sales order detail: OD202604009
+2026-04-07 17:59:55:5955 info: Sales order detail fetched: OD202604009
+2026-04-07 17:59:57:5957 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 17:59:57:5957 info: Fetching sales orders with params:
+2026-04-07 17:59:57:5957 info: Found 10 sales orders
+2026-04-07 18:00:06:06 info: GET /api/v2/erp-orders/OD202604002 - Fetching sales order detail
+2026-04-07 18:00:06:06 info: Fetching sales order detail: OD202604002
+2026-04-07 18:00:06:06 info: Sales order detail fetched: OD202604002
+2026-04-07 18:00:08:08 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:00:08:08 info: Fetching sales orders with params:
+2026-04-07 18:00:08:08 info: Found 10 sales orders
+2026-04-07 18:00:20:020 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:00:20:020 info: Fetching sales orders with params:
+2026-04-07 18:00:20:020 info: Found 10 sales orders
+2026-04-07 18:00:22:022 info: GET /api/v2/erp-orders/OD202604009 - Fetching sales order detail
+2026-04-07 18:00:22:022 info: Fetching sales order detail: OD202604009
+2026-04-07 18:00:22:022 info: Sales order detail fetched: OD202604009
+2026-04-07 18:00:25:025 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:00:25:025 info: Fetching sales orders with params:
+2026-04-07 18:00:25:025 info: Found 10 sales orders
+2026-04-07 18:00:37:037 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:00:37:037 info: Fetching sales orders with params:
+2026-04-07 18:00:37:037 info: Found 10 sales orders
+2026-04-07 18:11:41:1141 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:11:41:1141 info: Fetching sales orders with params:
+2026-04-07 18:11:41:1141 info: Found 10 sales orders
+2026-04-07 18:12:49:1249 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:12:49:1249 info: Fetching sales orders with params:
+2026-04-07 18:12:50:1250 info: Found 10 sales orders
+2026-04-07 18:30:54:3054 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:30:54:3054 info: Fetching sales orders with params:
+2026-04-07 18:30:54:3054 info: Found 10 sales orders
+2026-04-07 18:31:01:311 info: GET /api/v2/erp-orders/OD202604001 - Fetching sales order detail
+2026-04-07 18:31:01:311 info: Fetching sales order detail: OD202604001
+2026-04-07 18:31:01:311 info: Sales order detail fetched: OD202604001
+2026-04-07 18:31:07:317 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:31:07:317 info: Fetching sales orders with params:
+2026-04-07 18:31:07:317 info: Found 10 sales orders
+2026-04-07 18:31:16:3116 info: GET /api/v2/erp-orders/OD202604001 - Fetching sales order detail
+2026-04-07 18:31:16:3116 info: Fetching sales order detail: OD202604001
+2026-04-07 18:31:16:3116 info: Sales order detail fetched: OD202604001
+2026-04-07 18:31:17:3117 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:31:17:3117 info: Fetching sales orders with params:
+2026-04-07 18:31:17:3117 info: Found 10 sales orders
+2026-04-07 18:31:19:3119 info: GET /api/v2/erp-orders/OD202604001 - Fetching sales order detail
+2026-04-07 18:31:19:3119 info: Fetching sales order detail: OD202604001
+2026-04-07 18:31:19:3119 info: Sales order detail fetched: OD202604001
+2026-04-07 18:31:31:3131 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:31:31:3131 info: Fetching sales orders with params:
+2026-04-07 18:31:31:3131 info: Found 10 sales orders
+2026-04-07 18:31:41:3141 info: GET /api/v2/erp-orders/OD202604001 - Fetching sales order detail
+2026-04-07 18:31:41:3141 info: Fetching sales order detail: OD202604001
+2026-04-07 18:31:41:3141 info: Sales order detail fetched: OD202604001
+2026-04-07 18:31:43:3143 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:31:43:3143 info: Fetching sales orders with params:
+2026-04-07 18:31:43:3143 info: Found 10 sales orders
+2026-04-07 18:32:04:324 info: GET /api/v2/erp-orders/OD202604001 - Fetching sales order detail
+2026-04-07 18:32:04:324 info: Fetching sales order detail: OD202604001
+2026-04-07 18:32:04:324 info: Sales order detail fetched: OD202604001
+2026-04-07 18:32:11:3211 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:32:11:3211 info: Fetching sales orders with params:
+2026-04-07 18:32:11:3211 info: Found 10 sales orders
+2026-04-07 18:32:58:3258 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:32:58:3258 info: Fetching sales orders with params:
+2026-04-07 18:32:58:3258 info: Found 10 sales orders
+2026-04-07 18:33:05:335 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:33:05:335 info: Fetching sales orders with params:
+2026-04-07 18:33:05:335 info: Found 10 sales orders
+2026-04-07 18:33:13:3313 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:33:13:3313 info: Fetching sales orders with params:
+2026-04-07 18:33:13:3313 info: Found 10 sales orders
+2026-04-07 18:33:19:3319 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:33:19:3319 info: Fetching sales orders with params:
+2026-04-07 18:33:19:3319 info: Found 10 sales orders
+2026-04-07 18:33:39:3339 info: GET /api/v2/erp-orders/OD202604001 - Fetching sales order detail
+2026-04-07 18:33:39:3339 info: Fetching sales order detail: OD202604001
+2026-04-07 18:33:39:3339 info: Sales order detail fetched: OD202604001
+2026-04-07 18:33:42:3342 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 18:33:42:3342 info: Fetching sales orders with params:
+2026-04-07 18:33:42:3342 info: Found 10 sales orders

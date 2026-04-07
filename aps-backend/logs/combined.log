@@ -422,3 +422,16 @@
 2026-04-07 14:56:32:5632 info: GET /api/v2/erp-orders - Fetching sales orders
 2026-04-07 14:56:32:5632 info: Fetching sales orders with params:
 2026-04-07 14:56:32:5632 info: Found 10 sales orders
+2026-04-07 15:02:12:212 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 15:02:12:212 info: Fetching sales orders with params:
+2026-04-07 15:02:12:212 info: Found 10 sales orders
+2026-04-07 16:19:47:1947 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-07 16:20:37:2037 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 16:20:37:2037 info: Fetching sales orders with params:
+2026-04-07 16:20:37:2037 info: Found 10 sales orders
+2026-04-07 16:21:08:218 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 16:21:08:218 info: Fetching sales orders with params:
+2026-04-07 16:23:05:235 info: Deleting process route: PR001
+2026-04-07 16:23:05:235 info: Process route deleted successfully: PR001
+2026-04-07 16:23:35:2335 info: Creating process route: PR187912
+2026-04-07 16:23:35:2335 info: Process route created successfully: PR187912

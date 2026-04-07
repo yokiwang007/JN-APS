@@ -69,7 +69,7 @@ const routes = [
         path: 'order/split-rules',
         name: 'SplitRules',
         component: () => import('../views/order/SplitRules.vue'),
-        meta: { title: '拆单规则', icon: 'Notebook' }
+        meta: { title: '拆解规则', icon: 'Notebook' }
       },
       {
         path: 'order/preprocess-result',
@@ -207,7 +207,7 @@ const routes = [
         path: 'capacity/equipment',
         name: 'EquipmentConfig',
         component: () => import('../views/capacity/EquipmentConfig.vue'),
-        meta: { title: '设备配置', icon: 'Setting' }
+        meta: { title: '设备列表', icon: 'Setting' }
       },
       {
         path: 'production/orders',

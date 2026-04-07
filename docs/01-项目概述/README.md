@@ -101,17 +101,17 @@ aps-frontend/
 **页面**:
 - `/order/list` - 订单列表
 - `/order/split` - 订单拆解
-- `/order/split-rules` - 拆单规则
+- `/order/split-rules` - 拆解规则
 - `/order/preprocess-result` - 预处理结果
 - `/order/preprocess-rules` - 预处理规则
 
 **功能**:
 - ERP订单同步
-- 拆单规则选择和配置
+- 拆解规则选择和配置
 - 执行拆解功能
 - 生产子订单生成
 - BOM零件明细展示
-- 拆单规则管理(新增、编辑、删除、启用/禁用)
+- 拆解规则管理(新增、编辑、删除、启用/禁用)
 - 规则优先级管理
 
 ---
@@ -280,7 +280,7 @@ aps-frontend/
 - `/capacity/production-line` - 标准产能设置
 - `/capacity/process-route` - 生产周期设置
 - `/capacity/work-calendar` - 工作日历
-- `/capacity/equipment` - 设备配置
+- `/capacity/equipment` - 设备列表
 
 **功能**:
 - 产线标准产能设置

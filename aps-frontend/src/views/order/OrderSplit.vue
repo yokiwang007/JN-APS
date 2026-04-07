@@ -8,7 +8,7 @@
           </el-button>
         </el-col>
         <el-col :span="6">
-          <el-select v-model="selectedSplitRule" placeholder="选择拆单规则" style="width: 100%">
+          <el-select v-model="selectedSplitRule" placeholder="选择拆解规则" style="width: 100%">
             <el-option label="默认规则" value="default" />
             <el-option label="优先利用率规则" value="utilization" />
             <el-option label="优先交期规则" value="delivery" />
@@ -21,7 +21,7 @@
         </el-col>
         <el-col :span="6">
           <el-button :icon="Setting" @click="goToSplitRules">
-            拆单规则配置
+            拆解规则配置
           </el-button>
         </el-col>
       </el-row>
@@ -344,7 +344,7 @@ const handleViewOrderDetail = (order) => {
   orderDetailVisible.value = true
 }
 
-// 跳转到拆单规则配置
+// 跳转到拆解规则配置
 const goToSplitRules = () => {
   router.push('/order/split-rules')
 }
