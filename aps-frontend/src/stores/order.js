@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { getOrders, getOrderDetail, preprocessOrders, getPreprocessResult } from '../utils/api'
+import { getOrders, getOrderDetail, preprocessOrders, getPreprocessResult } from '../utils/api-unified'
 
 export const useOrderStore = defineStore('order', () => {
   // 状态
@@ -29,9 +29,10 @@ export const useOrderStore = defineStore('order', () => {
         ...filters.value,
         ...pagination.value
       })
-      if (result.code === 'SUCCESS') {
-        orders.value = result.data.list
-        pagination.value.total = result.data.total
+      // 兼容V1和V2响应格式
+      if (result.code === 'SUCCESS' || result.success === true) {
+        orders.value = result.data.list || result.data
+        pagination.value.total = result.data.total || (Array.isArray(result.data) ? result.data.length : 0)
       }
     } finally {
       loading.value = false
@@ -43,7 +44,8 @@ export const useOrderStore = defineStore('order', () => {
     loading.value = true
     try {
       const result = await getOrderDetail(orderNo)
-      if (result.code === 'SUCCESS') {
+      // 兼容V1和V2响应格式
+      if (result.code === 'SUCCESS' || result.success === true) {
         currentOrder.value = result.data
       }
     } finally {

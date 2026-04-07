@@ -254,7 +254,7 @@ import { Search, VideoPlay } from '@element-plus/icons-vue'
 import { useOrderStore } from '../../stores/order'
 import { useBatchStore } from '../../stores/batch'
 import { useStrategyStore } from '../../stores/strategy'
-import { getOrders, getProductionLines, getProcessRoutes } from '../../utils/api'
+import { getOrders, getProductionLines, getProcessRoutes } from '../../utils/api-unified'
 import ManualBatchCreate from '../../components/ManualBatchCreate.vue'
 
 const router = useRouter()

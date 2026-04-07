@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { getStrategies, createStrategy, updateStrategy, deleteStrategy, activateStrategy } from '../utils/api'
+import { getStrategies, createStrategy, updateStrategy, deleteStrategy, activateStrategy } from '../utils/api-unified'
 
 export const useStrategyStore = defineStore('strategy', () => {
   // 状态

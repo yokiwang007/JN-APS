@@ -164,7 +164,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { VideoPlay, CircleCheck, Warning, TrendCharts, Refresh, WarningFilled } from '@element-plus/icons-vue'
-import { getProgress, getProductionLines } from '../../utils/api'
+import { getProgress, getProductionLines } from '../../utils/api-unified'
 
 const router = useRouter()
 

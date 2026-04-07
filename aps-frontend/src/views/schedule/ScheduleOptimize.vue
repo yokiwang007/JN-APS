@@ -176,7 +176,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Search, VideoPlay, Upload } from '@element-plus/icons-vue'
-import { getBatches, optimizeSchedules, issueInstructions } from '../../utils/api'
+import { getBatches, optimizeSchedules, issueInstructions } from '../../utils/api-unified'
 
 const searchKeyword = ref('')
 const selectedBatches = ref([])

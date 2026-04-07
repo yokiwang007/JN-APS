@@ -1,0 +1,49 @@
+2026-04-05 19:43:01:431 error: Login error: Unknown database 'aps_db'
+2026-04-05 19:43:01:431 error: Login controller error: Unknown database 'aps_db'
+2026-04-05 19:43:01:431 error: Error: Unknown database 'aps_db'
+2026-04-05 19:44:12:4412 error: Login error: Unknown database 'aps_db'
+2026-04-05 19:44:12:4412 error: Login controller error: Unknown database 'aps_db'
+2026-04-05 19:44:12:4412 error: Error: Unknown database 'aps_db'
+2026-04-05 19:51:29:5129 error: Create order error: Field 'panel_type' doesn't have a default value
+2026-04-05 19:51:29:5129 error: Create order controller error: Field 'panel_type' doesn't have a default value
+2026-04-05 19:51:29:5129 error: Error: Field 'panel_type' doesn't have a default value
+2026-04-05 20:21:04:214 error: Get batch detail error: batch_orders is not associated to batches!
+2026-04-05 20:21:04:214 error: Plan batch controller error: batch_orders is not associated to batches!
+2026-04-05 20:21:04:214 error: Error: batch_orders is not associated to batches!
+2026-04-05 20:23:24:2324 error: Get batch detail error: Unknown column 'batchOrders.deleted_at' in 'field list'
+2026-04-05 20:23:24:2324 error: Plan batch controller error: Unknown column 'batchOrders.deleted_at' in 'field list'
+2026-04-05 20:23:24:2324 error: Error: Unknown column 'batchOrders.deleted_at' in 'field list'
+2026-04-05 20:35:08:358 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:08:358 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:08:358 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:31:3531 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:31:3531 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:31:3531 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:36:41:3641 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:36:41:3641 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:36:41:3641 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:37:09:379 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:37:09:379 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:37:09:379 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:38:22:3822 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:38:22:3822 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:38:22:3822 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-06 20:36:06:366 error: Create production line error: WHERE parameter "line_id" has invalid "undefined" value
+2026-04-06 20:36:08:368 error: Create production line error: WHERE parameter "line_id" has invalid "undefined" value
+2026-04-06 20:36:18:3618 error: Create production line error: WHERE parameter "line_id" has invalid "undefined" value
+2026-04-06 22:09:33:933 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:09:33:933 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:10:01:101 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:10:01:101 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:10:44:1044 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:10:44:1044 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-07 00:09:48:948 error: Create sales order error: Incorrect date value: 'Invalid date' for column 'due_date' at row 1
+2026-04-07 00:09:48:948 error: Create sales order error: Incorrect date value: 'Invalid date' for column 'due_date' at row 1
+2026-04-07 09:14:43:1443 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:14:43:1443 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:14:49:1449 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:14:49:1449 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:16:31:1631 error: Update workpiece bill error: Unknown column 'deleted_at' in 'where clause'
+2026-04-07 09:16:31:1631 error: Update workpiece bill error: Unknown column 'deleted_at' in 'where clause'
+2026-04-07 09:16:55:1655 error: Update workpiece bill error: Unknown column 'deleted_at' in 'where clause'
+2026-04-07 09:16:55:1655 error: Update workpiece bill error: Unknown column 'deleted_at' in 'where clause'

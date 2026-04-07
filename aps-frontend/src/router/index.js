@@ -84,6 +84,12 @@ const routes = [
         meta: { title: '预处理规则', icon: 'Setting' }
       },
       {
+        path: 'order/workpiece-bill',
+        name: 'WorkpieceBill',
+        component: () => import('../views/workpiece/WorkpieceBillList.vue'),
+        meta: { title: '工件清单', icon: 'List' }
+      },
+      {
         path: 'batch/plan',
         name: 'BatchPlan',
         component: () => import('../views/batch/BatchPlan.vue'),

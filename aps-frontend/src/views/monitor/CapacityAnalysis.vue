@@ -76,7 +76,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { TrendCharts } from '@element-plus/icons-vue'
-import { getProductionLines } from '../../utils/api'
+import { getProductionLines } from '../../utils/api-unified'
 
 const stats = ref([
   { label: '平均负荷率', value: '78%', color: '#409eff' },

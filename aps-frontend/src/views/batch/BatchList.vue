@@ -132,7 +132,7 @@ import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Search, Refresh, View, Upload, Edit } from '@element-plus/icons-vue'
 import { useBatchStore } from '../../stores/batch'
-import { issueInstructions } from '../../utils/api'
+import { issueInstructions } from '../../utils/api-unified'
 
 const router = useRouter()
 const batchStore = useBatchStore()

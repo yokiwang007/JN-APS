@@ -1,0 +1,391 @@
+2026-04-06 10:12:29:1229 info: Fetching production lines with params:
+2026-04-06 10:12:29:1229 error: Get production lines error: Access denied for user ''@'localhost' (using password: NO)
+2026-04-06 10:12:29:1229 error: Get production lines controller error: Access denied for user ''@'localhost' (using password: NO)
+2026-04-06 10:12:29:1229 error: Error: Access denied for user ''@'localhost' (using password: NO)
+2026-04-06 10:13:59:1359 info: Fetching production lines with params:
+2026-04-06 10:13:59:1359 info: Found 6 production lines
+2026-04-06 10:16:47:1647 info: Fetching production lines with params:
+2026-04-06 10:16:47:1647 info: Found 6 production lines
+2026-04-06 10:21:31:2131 info: Fetching production lines with params:
+2026-04-06 10:21:31:2131 info: Found 6 production lines
+2026-04-06 10:22:09:229 info: Fetching production lines with params:
+2026-04-06 10:22:09:229 info: Found 6 production lines
+2026-04-06 11:01:58:158 info: Creating production line:
+2026-04-06 11:01:58:158 info: Production line created successfully: EDG518190
+2026-04-06 11:01:58:158 info: Fetching production lines with params:
+2026-04-06 11:01:58:158 info: Found 7 production lines
+2026-04-06 11:02:38:238 info: Fetching production lines with params:
+2026-04-06 11:02:38:238 info: Found 7 production lines
+2026-04-06 11:03:27:327 info: Deleting production line: EDG518190
+2026-04-06 11:03:27:327 info: Production line deleted successfully: EDG518190
+2026-04-06 11:05:00:50 info: Fetching production lines with params:
+2026-04-06 11:05:00:50 info: Found 6 production lines
+2026-04-06 11:05:04:54 info: Fetching production lines with params:
+2026-04-06 11:05:04:54 info: Found 6 production lines
+2026-04-06 11:05:35:535 info: Updating production line: PL001
+2026-04-06 11:05:35:535 info: Production line updated successfully: PL001
+2026-04-06 11:05:35:535 info: Fetching production lines with params:
+2026-04-06 11:05:35:535 info: Found 6 production lines
+2026-04-06 11:05:38:538 info: Fetching production lines with params:
+2026-04-06 11:05:38:538 info: Found 6 production lines
+2026-04-06 11:06:38:638 info: Creating production line:
+2026-04-06 11:06:38:638 info: Production line created successfully: SAW798723
+2026-04-06 11:06:38:638 info: Fetching production lines with params:
+2026-04-06 11:06:38:638 info: Found 7 production lines
+2026-04-06 11:06:45:645 info: Fetching production lines with params:
+2026-04-06 11:06:45:645 info: Found 7 production lines
+2026-04-06 11:07:39:739 info: Fetching production lines with params:
+2026-04-06 11:07:39:739 info: Found 7 production lines
+2026-04-06 12:02:03:23 info: Fetching orders with params:
+2026-04-06 12:02:03:23 info: Found 2 orders
+2026-04-06 12:02:05:25 info: Updating order: ORD20260401020
+2026-04-06 12:02:05:25 warn: Order not found: ORD20260401020
+2026-04-06 12:02:05:25 error: Update order error: 订单不存在
+2026-04-06 12:02:05:25 error: Update order controller error: 订单不存在
+2026-04-06 12:02:05:25 error: Error: 订单不存在
+2026-04-06 12:02:53:253 info: Creating order: undefined
+2026-04-06 12:02:53:253 error: Create order error: WHERE parameter "order_no" has invalid "undefined" value
+2026-04-06 12:02:53:253 error: Create order controller error: WHERE parameter "order_no" has invalid "undefined" value
+2026-04-06 12:02:53:253 error: Error: WHERE parameter "order_no" has invalid "undefined" value
+2026-04-06 12:03:15:315 info: Creating order: TEST001
+2026-04-06 12:03:15:315 info: Order created successfully: TEST001
+2026-04-06 12:03:15:315 info: Fetching order detail: TEST001
+2026-04-06 12:03:15:315 info: Order detail fetched: TEST001
+2026-04-06 12:03:55:355 info: Deleting order: TEST001
+2026-04-06 12:03:55:355 info: Order deleted successfully: TEST001
+2026-04-06 12:04:36:436 info: Fetching orders with params:
+2026-04-06 12:04:36:436 info: Found 2 orders
+2026-04-06 12:05:58:558 info: Fetching production lines with params:
+2026-04-06 12:05:58:558 info: Found 7 production lines
+2026-04-06 12:05:58:558 info: Fetching production lines with params:
+2026-04-06 12:05:58:558 info: Found 7 production lines
+2026-04-06 12:39:58:3958 info: Fetching production lines with params:
+2026-04-06 12:39:58:3958 info: Found 7 production lines
+2026-04-06 12:40:52:4052 info: Fetching orders with params:
+2026-04-06 12:40:52:4052 info: Found 2 orders
+2026-04-06 12:43:51:4351 info: Fetching orders with params:
+2026-04-06 12:43:51:4351 info: Found 2 orders
+2026-04-06 12:49:11:4911 info: Fetching orders with params:
+2026-04-06 12:49:11:4911 info: Found 2 orders
+2026-04-06 13:12:24:1224 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 13:12:24:1224 info: Fetching sales orders with params:
+2026-04-06 13:12:24:1224 info: Found 0 sales orders
+2026-04-06 13:12:37:1237 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:16:11:1611 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 13:16:11:1611 info: Fetching sales orders with params:
+2026-04-06 13:16:11:1611 info: Found 0 sales orders
+2026-04-06 13:16:15:1615 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:16:23:1623 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:23:47:2347 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:23:52:2352 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 13:23:52:2352 info: Fetching sales orders with params:
+2026-04-06 13:23:52:2352 info: Found 0 sales orders
+2026-04-06 13:23:54:2354 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 13:23:54:2354 info: Fetching sales orders with params:
+2026-04-06 13:23:54:2354 info: Found 0 sales orders
+2026-04-06 13:30:56:3056 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 13:30:56:3056 info: Fetching sales orders with params:
+2026-04-06 13:30:56:3056 info: Found 0 sales orders
+2026-04-06 13:31:00:310 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:31:08:318 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:31:21:3121 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:31:25:3125 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:32:31:3231 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 13:32:31:3231 info: Fetching sales orders with params:
+2026-04-06 13:32:31:3231 info: Found 0 sales orders
+2026-04-06 13:32:53:3253 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-06 13:32:53:3253 info: Creating sales order: undefined
+2026-04-06 13:32:53:3253 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 13:32:53:3253 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 13:35:30:3530 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:35:32:3532 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:35:43:3543 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 13:35:43:3543 error: Create production line error: WHERE parameter "line_id" has invalid "undefined" value
+2026-04-06 13:35:53:3553 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 13:36:12:3612 info: DELETE /api/v2/production-lines/LINE999 - Deleting production line
+2026-04-06 13:37:28:3728 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 13:38:17:3817 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:47:37:4737 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 20:48:07:487 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:48:25:4825 info: DELETE /api/v2/production-lines/LINE888 - Deleting production line
+2026-04-06 20:52:34:5234 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:52:56:5256 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:53:20:5320 info: PUT /api/v2/production-lines/LINE006 - Updating production line
+2026-04-06 20:53:20:5320 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:53:24:5324 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 21:12:35:1235 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 21:13:08:138 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 21:13:40:1340 info: PUT /api/v2/production-lines/TEST001 - Updating production line
+2026-04-06 21:14:09:149 info: DELETE /api/v2/production-lines/TEST001 - Deleting production line
+2026-04-06 21:35:36:3536 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 21:36:27:3627 info: PUT /api/v2/production-lines/TEST002 - Updating production line
+2026-04-06 21:37:25:3725 info: DELETE /api/v2/production-lines/TEST002 - Deleting production line
+2026-04-06 22:26:00:260 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-06 22:26:00:260 info: Creating sales order: TEST001
+2026-04-06 22:26:00:260 info: Sales order created successfully: TEST001
+2026-04-06 22:27:08:278 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:27:08:278 info: Fetching sales orders with params:
+2026-04-06 22:27:08:278 info: Found 1 sales orders
+2026-04-06 22:27:54:2754 info: PUT /api/v2/erp-orders/TEST001 - Updating sales order
+2026-04-06 22:27:54:2754 info: Updating sales order: TEST001
+2026-04-06 22:27:54:2754 info: Sales order updated successfully: TEST001
+2026-04-06 22:27:54:2754 info: Fetching sales order detail: TEST001
+2026-04-06 22:27:54:2754 info: Sales order detail fetched: TEST001
+2026-04-06 22:29:17:2917 info: DELETE /api/v2/erp-orders/TEST001 - Deleting sales order
+2026-04-06 22:29:17:2917 info: Deleting sales order: TEST001
+2026-04-06 22:29:17:2917 info: Sales order deleted successfully: TEST001
+2026-04-06 22:31:02:312 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:31:02:312 info: Fetching sales orders with params:
+2026-04-06 22:31:02:312 info: Found 0 sales orders
+2026-04-06 22:31:13:3113 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:31:13:3113 info: Fetching sales orders with params:
+2026-04-06 22:31:13:3113 info: Found 0 sales orders
+2026-04-06 22:32:16:3216 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-06 22:32:16:3216 info: Creating sales order: OD20260406001
+2026-04-06 22:32:16:3216 info: Sales order created successfully: OD20260406001
+2026-04-06 22:32:16:3216 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:32:16:3216 info: Fetching sales orders with params:
+2026-04-06 22:32:16:3216 info: Found 1 sales orders
+2026-04-06 22:47:28:4728 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-06 22:47:28:4728 info: Creating sales order: TEST002
+2026-04-06 22:47:28:4728 info: Sales order created successfully: TEST002
+2026-04-06 22:48:35:4835 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:48:35:4835 info: Fetching sales orders with params:
+2026-04-06 22:48:35:4835 info: Found 2 sales orders
+2026-04-06 22:49:00:490 info: PUT /api/v2/erp-orders/TEST002 - Updating sales order
+2026-04-06 22:49:00:490 info: Updating sales order: TEST002
+2026-04-06 22:49:00:490 info: Sales order updated successfully: TEST002
+2026-04-06 22:49:00:490 info: Fetching sales order detail: TEST002
+2026-04-06 22:49:00:490 info: Sales order detail fetched: TEST002
+2026-04-06 22:52:15:5215 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:52:15:5215 info: Fetching sales orders with params:
+2026-04-06 22:52:15:5215 info: Found 2 sales orders
+2026-04-06 22:52:52:5252 info: PUT /api/v2/erp-orders/OD20260406001 - Updating sales order
+2026-04-06 22:52:52:5252 info: Updating sales order: OD20260406001
+2026-04-06 22:52:52:5252 info: Sales order updated successfully: OD20260406001
+2026-04-06 22:52:52:5252 info: Fetching sales order detail: OD20260406001
+2026-04-06 22:52:52:5252 info: Sales order detail fetched: OD20260406001
+2026-04-06 22:52:52:5252 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:52:52:5252 info: Fetching sales orders with params:
+2026-04-06 22:52:52:5252 info: Found 2 sales orders
+2026-04-06 22:53:53:5353 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-06 22:53:53:5353 info: Creating sales order: OD20260406002
+2026-04-06 22:53:53:5353 info: Sales order created successfully: OD20260406002
+2026-04-06 22:53:53:5353 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:53:53:5353 info: Fetching sales orders with params:
+2026-04-06 22:53:53:5353 info: Found 3 sales orders
+2026-04-06 22:54:21:5421 info: DELETE /api/v2/erp-orders/OD20260406001 - Deleting sales order
+2026-04-06 22:54:21:5421 info: Deleting sales order: OD20260406001
+2026-04-06 22:54:21:5421 info: Sales order deleted successfully: OD20260406001
+2026-04-06 22:54:21:5421 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:54:21:5421 info: Fetching sales orders with params:
+2026-04-06 22:54:21:5421 info: Found 2 sales orders
+2026-04-06 22:54:24:5424 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:54:24:5424 info: Fetching sales orders with params:
+2026-04-06 22:54:24:5424 info: Found 2 sales orders
+2026-04-06 22:54:50:5450 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:54:50:5450 info: Fetching sales orders with params:
+2026-04-06 22:54:50:5450 info: Found 2 sales orders
+2026-04-06 22:55:06:556 info: PUT /api/v2/erp-orders/TEST002 - Updating sales order
+2026-04-06 22:55:06:556 info: Updating sales order: TEST002
+2026-04-06 22:55:06:556 info: Sales order updated successfully: TEST002
+2026-04-06 22:55:06:556 info: Fetching sales order detail: TEST002
+2026-04-06 22:55:06:556 info: Sales order detail fetched: TEST002
+2026-04-06 22:55:06:556 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:55:06:556 info: Fetching sales orders with params:
+2026-04-06 22:55:06:556 info: Found 2 sales orders
+2026-04-06 22:55:19:5519 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:55:19:5519 info: Fetching sales orders with params:
+2026-04-06 22:55:19:5519 info: Found 2 sales orders
+2026-04-06 23:09:06:96 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-06 23:09:06:96 info: Creating sales order: TEST003
+2026-04-06 23:09:06:96 info: Sales order created successfully: TEST003
+2026-04-06 23:09:23:923 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 23:09:23:923 info: Fetching sales orders with params:
+2026-04-06 23:09:23:923 info: Found 3 sales orders
+2026-04-06 23:10:47:1047 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 23:10:47:1047 info: Fetching sales orders with params:
+2026-04-06 23:10:47:1047 info: Found 3 sales orders
+2026-04-06 23:13:43:1343 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 23:13:43:1343 info: Fetching sales orders with params:
+2026-04-06 23:13:43:1343 info: Found 3 sales orders
+2026-04-06 23:13:54:1354 info: PUT /api/v2/erp-orders/TEST002 - Updating sales order
+2026-04-06 23:13:54:1354 info: Updating sales order: TEST002
+2026-04-06 23:13:54:1354 info: Sales order updated successfully: TEST002
+2026-04-06 23:13:54:1354 info: Fetching sales order detail: TEST002
+2026-04-06 23:13:54:1354 info: Sales order detail fetched: TEST002
+2026-04-06 23:13:54:1354 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 23:13:54:1354 info: Fetching sales orders with params:
+2026-04-06 23:13:54:1354 info: Found 3 sales orders
+2026-04-06 23:14:01:141 info: PUT /api/v2/erp-orders/OD20260406002 - Updating sales order
+2026-04-06 23:14:01:141 info: Updating sales order: OD20260406002
+2026-04-06 23:14:01:141 info: Sales order updated successfully: OD20260406002
+2026-04-06 23:14:01:141 info: Fetching sales order detail: OD20260406002
+2026-04-06 23:14:01:141 info: Sales order detail fetched: OD20260406002
+2026-04-06 23:14:01:141 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 23:14:01:141 info: Fetching sales orders with params:
+2026-04-06 23:14:01:141 info: Found 3 sales orders
+2026-04-06 23:16:48:1648 info: GET /api/v2/erp-orders/TEST002 - Fetching sales order detail
+2026-04-06 23:16:48:1648 info: Fetching sales order detail: TEST002
+2026-04-06 23:16:48:1648 info: Sales order detail fetched: TEST002
+2026-04-06 23:53:33:5333 warn: Workpiece bill not found: workpiece-bills
+2026-04-06 23:53:33:5333 error: Get workpiece bill detail error: 工件清单不存在
+2026-04-06 23:53:33:5333 error: Get workpiece bill detail error: 工件清单不存在
+2026-04-07 00:08:15:815 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 00:08:15:815 info: Fetching sales orders with params:
+2026-04-07 00:08:15:815 info: Found 3 sales orders
+2026-04-07 00:08:22:822 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 00:08:22:822 info: Fetching sales orders with params:
+2026-04-07 00:08:22:822 info: Found 3 sales orders
+2026-04-07 00:18:12:1812 info: Creating workpiece bill for order: TEST003
+2026-04-07 00:18:12:1812 error: Create workpiece bill error: Access denied for user ''@'localhost' (using password: NO)
+2026-04-07 00:20:03:203 info: PUT /api/v2/production-lines/PL006 - Updating production line
+2026-04-07 00:20:03:203 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-07 00:20:05:205 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-07 00:25:36:2536 info: Creating workpiece bill for order: TEST003
+2026-04-07 00:25:36:2536 error: Create workpiece bill error: order.created_at.split is not a function
+2026-04-07 00:25:36:2536 error: Create workpiece bill error: order.created_at.split is not a function
+2026-04-07 00:27:58:2758 info: Creating workpiece bill for order: TEST003
+2026-04-07 00:27:58:2758 info: Workpiece bill created successfully: WB878484
+2026-04-07 00:27:58:2758 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 00:27:58:2758 error: Create workpiece bill error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 00:28:04:284 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-07 00:28:06:286 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-07 00:31:21:3121 info: Creating workpiece bill for order: TEST003
+2026-04-07 00:31:21:3121 warn: Workpiece bill already exists for order: TEST003
+2026-04-07 00:31:21:3121 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 00:31:21:3121 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:21:35:2135 info: Updating workpiece bill: WB878484
+2026-04-07 09:21:35:2135 info: Workpiece bill updated successfully: WB878484
+2026-04-07 09:21:35:2135 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:21:35:2135 error: Update workpiece bill error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:21:39:2139 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:21:39:2139 info: Fetching sales orders with params:
+2026-04-07 09:21:39:2139 info: Found 3 sales orders
+2026-04-07 09:23:06:236 info: Creating workpiece bill for order: TEST002
+2026-04-07 09:23:06:236 info: Workpiece bill created successfully: WB986541
+2026-04-07 09:23:06:236 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:23:06:236 error: Create workpiece bill error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:23:25:2325 info: Creating workpiece bill for order: TEST002
+2026-04-07 09:23:25:2325 warn: Workpiece bill already exists for order: TEST002
+2026-04-07 09:23:25:2325 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:23:25:2325 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:23:44:2344 info: Creating workpiece bill for order: TEST002
+2026-04-07 09:23:44:2344 warn: Workpiece bill already exists for order: TEST002
+2026-04-07 09:23:44:2344 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:23:44:2344 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:24:47:2447 info: Creating workpiece bill for order: TEST003
+2026-04-07 09:24:47:2447 warn: Workpiece bill already exists for order: TEST003
+2026-04-07 09:24:47:2447 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:24:47:2447 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:25:14:2514 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:25:14:2514 info: Fetching sales orders with params:
+2026-04-07 09:25:14:2514 info: Found 3 sales orders
+2026-04-07 09:25:19:2519 info: GET /api/v2/erp-orders/TEST002 - Fetching sales order detail
+2026-04-07 09:25:19:2519 info: Fetching sales order detail: TEST002
+2026-04-07 09:25:20:2520 info: Sales order detail fetched: TEST002
+2026-04-07 09:25:24:2524 info: Creating workpiece bill for order: TEST002
+2026-04-07 09:25:24:2524 warn: Workpiece bill already exists for order: TEST002
+2026-04-07 09:25:24:2524 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:25:24:2524 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:25:25:2525 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:25:25:2525 info: Fetching sales orders with params:
+2026-04-07 09:25:25:2525 info: Found 3 sales orders
+2026-04-07 09:25:26:2526 info: GET /api/v2/erp-orders/OD20260406002 - Fetching sales order detail
+2026-04-07 09:25:26:2526 info: Fetching sales order detail: OD20260406002
+2026-04-07 09:25:26:2526 info: Sales order detail fetched: OD20260406002
+2026-04-07 09:25:28:2528 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:25:28:2528 info: Fetching sales orders with params:
+2026-04-07 09:25:28:2528 info: Found 3 sales orders
+2026-04-07 09:25:29:2529 info: GET /api/v2/erp-orders/TEST003 - Fetching sales order detail
+2026-04-07 09:25:29:2529 info: Fetching sales order detail: TEST003
+2026-04-07 09:25:29:2529 info: Sales order detail fetched: TEST003
+2026-04-07 09:25:34:2534 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:25:34:2534 info: Fetching sales orders with params:
+2026-04-07 09:25:34:2534 info: Found 3 sales orders
+2026-04-07 09:25:44:2544 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:25:44:2544 info: Fetching sales orders with params:
+2026-04-07 09:25:44:2544 info: Found 3 sales orders
+2026-04-07 09:27:11:2711 info: Creating workpiece bill for order: OD20260406002
+2026-04-07 09:27:11:2711 info: Workpiece bill created successfully: WB231372
+2026-04-07 09:27:11:2711 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:27:11:2711 error: Create workpiece bill error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:34:22:3422 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:34:22:3422 info: Fetching sales orders with params:
+2026-04-07 09:34:22:3422 info: Found 3 sales orders
+2026-04-07 09:34:25:3425 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:34:25:3425 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:34:35:3435 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:34:35:3435 info: Fetching sales orders with params:
+2026-04-07 09:34:35:3435 info: Found 3 sales orders
+2026-04-07 09:34:47:3447 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:34:47:3447 info: Fetching sales orders with params:
+2026-04-07 09:34:47:3447 info: Found 3 sales orders
+2026-04-07 09:53:42:5342 info: Creating workpiece bill for order: OD20260406002
+2026-04-07 09:53:42:5342 warn: Workpiece bill already exists for order: OD20260406002
+2026-04-07 09:53:42:5342 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:53:42:5342 error: Create workpiece bill error: 该订单已存在工件清单
+2026-04-07 09:54:43:5443 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:54:43:5443 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:56:56:5656 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:56:56:5656 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 13:43:26:4326 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:43:26:4326 info: Fetching sales orders with params:
+2026-04-07 13:43:26:4326 info: Found 3 sales orders
+2026-04-07 13:43:38:4338 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:43:38:4338 info: Fetching sales orders with params:
+2026-04-07 13:43:39:4339 info: Found 3 sales orders
+2026-04-07 13:51:17:5117 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:51:17:5117 info: Fetching sales orders with params:
+2026-04-07 13:51:17:5117 info: Found 3 sales orders
+2026-04-07 13:51:32:5132 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:51:32:5132 info: Fetching sales orders with params:
+2026-04-07 13:51:32:5132 info: Found 3 sales orders
+2026-04-07 14:23:47:2347 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:23:47:2347 info: Fetching sales orders with params:
+2026-04-07 14:23:47:2347 info: Found 10 sales orders
+2026-04-07 14:23:56:2356 info: GET /api/v2/erp-orders/OD202604009 - Fetching sales order detail
+2026-04-07 14:23:56:2356 info: Fetching sales order detail: OD202604009
+2026-04-07 14:23:56:2356 info: Sales order detail fetched: OD202604009
+2026-04-07 14:24:01:241 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:24:01:241 info: Fetching sales orders with params:
+2026-04-07 14:24:01:241 info: Found 10 sales orders
+2026-04-07 14:24:02:242 info: GET /api/v2/erp-orders/OD202604002 - Fetching sales order detail
+2026-04-07 14:24:02:242 info: Fetching sales order detail: OD202604002
+2026-04-07 14:24:02:242 info: Sales order detail fetched: OD202604002
+2026-04-07 14:24:04:244 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:24:04:244 info: Fetching sales orders with params:
+2026-04-07 14:24:04:244 info: Found 10 sales orders
+2026-04-07 14:24:18:2418 info: GET /api/v2/erp-orders/OD202604009 - Fetching sales order detail
+2026-04-07 14:24:18:2418 info: Fetching sales order detail: OD202604009
+2026-04-07 14:24:18:2418 info: Sales order detail fetched: OD202604009
+2026-04-07 14:24:21:2421 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:24:21:2421 info: Fetching sales orders with params:
+2026-04-07 14:24:21:2421 info: Found 10 sales orders
+2026-04-07 14:24:22:2422 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:24:22:2422 info: Fetching sales orders with params:
+2026-04-07 14:24:22:2422 info: Found 10 sales orders
+2026-04-07 14:24:33:2433 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:24:33:2433 info: Fetching sales orders with params:
+2026-04-07 14:24:33:2433 info: Found 10 sales orders
+2026-04-07 14:24:35:2435 info: GET /api/v2/erp-orders/OD202604009 - Fetching sales order detail
+2026-04-07 14:24:35:2435 info: Fetching sales order detail: OD202604009
+2026-04-07 14:24:35:2435 info: Sales order detail fetched: OD202604009
+2026-04-07 14:24:42:2442 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:24:42:2442 info: Fetching sales orders with params:
+2026-04-07 14:24:42:2442 info: Found 10 sales orders
+2026-04-07 14:24:48:2448 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:24:48:2448 info: Fetching sales orders with params:
+2026-04-07 14:24:48:2448 info: Found 10 sales orders
+2026-04-07 14:25:01:251 info: GET /api/v2/erp-orders/OD202604009 - Fetching sales order detail
+2026-04-07 14:25:01:251 info: Fetching sales order detail: OD202604009
+2026-04-07 14:25:01:251 info: Sales order detail fetched: OD202604009
+2026-04-07 14:25:05:255 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:25:05:255 info: Fetching sales orders with params:
+2026-04-07 14:25:05:255 info: Found 10 sales orders
+2026-04-07 14:25:10:2510 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:25:10:2510 info: Fetching sales orders with params:
+2026-04-07 14:25:10:2510 info: Found 10 sales orders
+2026-04-07 14:26:16:2616 info: GET /api/v2/erp-orders/OD202604009 - Fetching sales order detail
+2026-04-07 14:26:16:2616 info: Fetching sales order detail: OD202604009
+2026-04-07 14:26:16:2616 info: Sales order detail fetched: OD202604009

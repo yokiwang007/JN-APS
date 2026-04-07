@@ -208,7 +208,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Search, Check } from '@element-plus/icons-vue'
-import { getBatches, adjustSchedule } from '../../utils/api'
+import { getBatches, adjustSchedule } from '../../utils/api-unified'
 
 const route = useRoute()
 

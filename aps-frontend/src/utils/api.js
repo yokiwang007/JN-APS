@@ -108,6 +108,117 @@ export const getOrderDetail = async (orderNo) => {
   return success({ ...order, panels })
 }
 
+// 创建订单
+export const createOrder = async (params) => {
+  await delay()
+  const data = getData()
+
+  // 生成订单号
+  const orderNo = params.orderNo || `ORD${Date.now().toString().slice(-6)}`
+
+  // 检查订单号是否已存在
+  const existingOrder = data.orders.find(o => o.orderNo === orderNo)
+  if (existingOrder) {
+    return error('订单号已存在')
+  }
+
+  const newOrder = {
+    orderNo,
+    organization: params.organization || '杰诺销售公司',
+    documentType: params.documentType || '零售订单',
+    orderType: params.orderType || '标准订单',
+    customerName: params.customerName,
+    salesman: params.salesman || '待分配',
+    productType: params.productType,
+    deliveryDate: params.deliveryDate,
+    priority: params.priority || '普通',
+    status: '待审核',
+    panelCount: params.panels?.length || 0,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    creator: '当前用户',
+    specialProcess: params.specialProcess,
+    remark: params.remark
+  }
+
+  data.orders.push(newOrder)
+
+  // 添加板件
+  if (params.panels && params.panels.length > 0) {
+    params.panels.forEach((panel, index) => {
+      const newPanel = {
+        panelNo: `BJ${orderNo}${String(index + 1).padStart(3, '0')}`,
+        orderNo,
+        panelType: panel.panelType,
+        length: panel.length,
+        width: panel.width,
+        thickness: panel.thickness,
+        color: panel.color,
+        material: panel.material,
+        edgeRequirement: panel.edgeRequirement,
+        processRoute: panel.processRoute
+      }
+      data.panels.push(newPanel)
+    })
+  }
+
+  saveData(data)
+  return success(newOrder)
+}
+
+// 更新订单
+export const updateOrder = async (orderNo, params) => {
+  await delay()
+  const data = getData()
+
+  const index = data.orders.findIndex(o => o.orderNo === orderNo)
+  if (index === -1) {
+    return error('订单不存在')
+  }
+
+  // 检查订单状态是否允许更新
+  const order = data.orders[index]
+  if (['已排产', '生产中'].includes(order.status)) {
+    return error('订单已排产或生产中，无法更新')
+  }
+
+  // 更新订单
+  data.orders[index] = {
+    ...data.orders[index],
+    ...params,
+    updatedAt: new Date().toISOString()
+  }
+
+  saveData(data)
+  return success(data.orders[index])
+}
+
+// 删除订单
+export const deleteOrder = async (orderNo) => {
+  await delay()
+  const data = getData()
+
+  const index = data.orders.findIndex(o => o.orderNo === orderNo)
+  if (index === -1) {
+    return error('订单不存在')
+  }
+
+  // 检查订单状态是否允许删除
+  const order = data.orders[index]
+  if (['已排产', '生产中'].includes(order.status)) {
+    return error('订单已排产或生产中，无法删除')
+  }
+
+  // 删除订单
+  data.orders.splice(index, 1)
+
+  // 删除关联的板件
+  data.panels = data.panels.filter(p => p.orderNo !== orderNo)
+
+  saveData(data)
+  return success(null)
+}
+
 // 订单预处理
 // 获取预处理规则
 export const getPreprocessRules = () => {
@@ -727,6 +838,32 @@ export const getProductionLines = async () => {
   return success(data.productionLines)
 }
 
+// 创建产线
+export const createProductionLine = async (params) => {
+  await delay()
+  const data = getData()
+
+  // 生成产线编号
+  const lineId = params.lineId || `LINE${Date.now().toString().slice(-6)}`
+
+  const newLine = {
+    lineId,
+    lineName: params.lineName,
+    lineType: params.lineType,
+    standardCapacity: params.standardCapacity,
+    standardCapacityArea: params.standardCapacityArea || null,
+    status: params.status || '正常',
+    workshop: params.workshop,
+    mainEquipments: params.mainEquipments || [],
+    loadRate: 0
+  }
+
+  data.productionLines.push(newLine)
+  saveData(data)
+
+  return success(newLine)
+}
+
 // 更新产线
 export const updateProductionLine = async (lineId, params) => {
   await delay()
@@ -745,6 +882,22 @@ export const updateProductionLine = async (lineId, params) => {
   saveData(data)
 
   return success(data.productionLines[index])
+}
+
+// 删除产线
+export const deleteProductionLine = async (lineId) => {
+  await delay()
+  const data = getData()
+
+  const index = data.productionLines.findIndex(l => l.lineId === lineId)
+  if (index === -1) {
+    return error('产线不存在')
+  }
+
+  data.productionLines.splice(index, 1)
+  saveData(data)
+
+  return success(null)
 }
 
 // 获取工艺路线列表

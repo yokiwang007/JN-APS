@@ -45,6 +45,17 @@ export const generateOrders = (count = 200) => {
   const priorityWeights = [0.7, 0.25, 0.05]
   const orderTypes = ['标准订单', '加急订单', '补件订单']
   const orderTypeWeights = [0.7, 0.2, 0.1]
+  
+  // 新增字段
+  const organizations = ['杰诺销售公司', '杰诺智造中心']
+  const organizationWeights = [0.6, 0.4]
+  const documentTypes = ['零售订单', '工程订单', '电商订单']
+  const documentTypeWeights = [0.5, 0.3, 0.2]
+  const salesmen = ['张伟', '王芳', '李娜', '赵敏', '刘静', '陈强', '杨磊', '黄艳']
+  const salesmanWeights = [0.15, 0.15, 0.15, 0.15, 0.1, 0.1, 0.1, 0.1]
+  
+  // 当前登录用户(模拟)
+  const currentUser = '管理员'
 
   for (let i = 1; i <= count; i++) {
     // 根据权重随机选择
@@ -52,9 +63,16 @@ export const generateOrders = (count = 200) => {
     const status = statuses[weightedRandom(statusWeights)]
     const priority = priorities[weightedRandom(priorityWeights)]
     const orderType = orderTypes[weightedRandom(orderTypeWeights)]
+    const organization = organizations[weightedRandom(organizationWeights)]
+    const documentType = documentTypes[weightedRandom(documentTypeWeights)]
+    const salesman = salesmen[weightedRandom(salesmanWeights)]
 
     const order = {
       orderNo: generateOrderNo(i),
+      organization, // 新增:组织
+      documentType, // 新增:单据类型
+      salesman, // 新增:销售员
+      creator: currentUser, // 新增:创建人(默认为当前登录用户)
       customerName: generateChineseName(),
       productType,
       deliveryDate: generateRandomDate(7, 30),
@@ -71,6 +89,41 @@ export const generateOrders = (count = 200) => {
   }
 
   return orders
+}
+
+// 生成工件名称
+const generatePanelName = (panelType, index, productType) => {
+  // 根据部件类型和序号生成合理的名称
+  const positionNames = ['左', '右', '顶', '底', '中', '前', '后']
+  const position = positionNames[index % positionNames.length]
+
+  switch (panelType) {
+    case '柜体板':
+      if (productType === '衣柜') {
+        const wardrobeNames = ['左侧板', '右侧板', '顶板', '底板', '层板', '背板', '中侧板']
+        return wardrobeNames[index % wardrobeNames.length]
+      } else if (productType === '橱柜') {
+        const cabinetNames = ['左侧板', '右侧板', '台面板', '底板', '层板', '背板', '踢脚板']
+        return cabinetNames[index % cabinetNames.length]
+      } else {
+        return `${position}侧板`
+      }
+    case '门板':
+      if (productType === '衣柜') {
+        return `门板${Math.floor(index / 2) + 1}-${index % 2 === 0 ? '左' : '右'}`
+      } else {
+        return `门板${index + 1}`
+      }
+    case '背板':
+      return '背板'
+    case '装饰条':
+      const trimNames = ['顶线', '脚线', '侧线', '装饰条']
+      return trimNames[index % trimNames.length]
+    case '抽面':
+      return `抽面${index + 1}`
+    default:
+      return `${panelType}${index + 1}`
+  }
 }
 
 // 生成工件演示数据(包含板件和五金件)
@@ -118,6 +171,7 @@ export const generatePanels = (orders) => {
         panelNo: generatePanelNo(order.orderNo, i),
         orderNo: order.orderNo,
         panelType,
+        panelName: generatePanelName(panelType, i - 1, order.productType), // 添加工件名称
         length,
         width,
         thickness: parseInt(thickness),
@@ -180,6 +234,7 @@ export const generatePanels = (orders) => {
         panelNo: generatePanelNo(order.orderNo, i),
         orderNo: order.orderNo,
         panelType: hardwareType,
+        panelName: `${hardwareType}(${specification})`, // 五金件名称
         length: null,
         width: null,
         thickness: null,

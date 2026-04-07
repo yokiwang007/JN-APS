@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { getBatches, getBatchDetail, planBatches } from '../utils/api'
+import { getBatches, getBatchDetail, planBatches } from '../utils/api-unified'
 
 export const useBatchStore = defineStore('batch', () => {
   // 状态

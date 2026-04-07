@@ -113,7 +113,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Search, Refresh, View, Edit } from '@element-plus/icons-vue'
-import { getBatches } from '../../utils/api'
+import { getBatches } from '../../utils/api-unified'
 
 const router = useRouter()
 

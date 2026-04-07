@@ -4,10 +4,16 @@
       <template #header>
         <div class="card-header">
           <span>标准产能设置</span>
-          <el-button type="primary" size="small" @click="refreshData">
-            <el-icon><Refresh /></el-icon>
-            刷新
-          </el-button>
+          <div class="header-actions">
+            <el-button type="success" size="small" @click="addLine">
+              <el-icon><Plus /></el-icon>
+              新增
+            </el-button>
+            <el-button type="primary" size="small" @click="refreshData">
+              <el-icon><Refresh /></el-icon>
+              刷新
+            </el-button>
+          </div>
         </div>
       </template>
       
@@ -64,21 +70,25 @@
           </template>
         </el-table-column>
         
-        <el-table-column label="操作" width="150" fixed="right">
+        <el-table-column label="操作" width="200" fixed="right">
           <template #default="{ row }">
             <el-button type="primary" link @click="editLine(row)">
               <el-icon><Edit /></el-icon>
               编辑
+            </el-button>
+            <el-button type="danger" link @click="deleteLine(row)">
+              <el-icon><Delete /></el-icon>
+              删除
             </el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-card>
     
-    <!-- 编辑对话框 -->
+    <!-- 编辑/新增对话框 -->
     <el-dialog
       v-model="editDialogVisible"
-      title="编辑标准产能"
+      :title="isEditMode ? '编辑标准产能' : '新增标准产能'"
       width="600px"
     >
       <el-form :model="editForm" label-width="120px">
@@ -146,14 +156,15 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
-import { Refresh, Edit } from '@element-plus/icons-vue'
-import { getProductionLines, updateProductionLine } from '../../utils/api'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Refresh, Edit, Plus, Delete } from '@element-plus/icons-vue'
+import { getProductionLines, createProductionLine, updateProductionLine, deleteProductionLine } from '../../utils/api-unified'
 
 const productionLines = ref([])
 const loading = ref(false)
 const editDialogVisible = ref(false)
 const editForm = ref({})
+const isEditMode = ref(false) // 是否为编辑模式
 
 // 获取产线类型颜色
 const getLineTypeColor = (type) => {
@@ -183,8 +194,25 @@ const getLoadColor = (percentage) => {
   return '#f56c6c'
 }
 
+// 新增产线
+const addLine = () => {
+  isEditMode.value = false
+  editForm.value = {
+    lineId: `LINE${Date.now().toString().slice(-6)}`, // 自动生成产线ID
+    lineName: '',
+    lineType: '开料线',
+    standardCapacity: 500,
+    standardCapacityArea: null,
+    status: '正常',
+    workshop: '',
+    mainEquipments: []
+  }
+  editDialogVisible.value = true
+}
+
 // 编辑产线
 const editLine = (line) => {
+  isEditMode.value = true
   editForm.value = { ...line }
   editDialogVisible.value = true
 }
@@ -192,14 +220,53 @@ const editLine = (line) => {
 // 保存产线
 const saveLine = async () => {
   try {
-    const result = await updateProductionLine(editForm.value.lineId, editForm.value)
-    if (result.code === 'SUCCESS') {
-      ElMessage.success('保存成功')
+    let result
+    if (isEditMode.value) {
+      // 编辑模式
+      result = await updateProductionLine(editForm.value.lineId, editForm.value)
+    } else {
+      // 新增模式
+      result = await createProductionLine(editForm.value)
+    }
+
+    // 兼容V1和V2响应格式
+    if (result.code === 'SUCCESS' || result.success === true) {
+      ElMessage.success(result.message || (isEditMode.value ? '更新成功' : '创建成功'))
       editDialogVisible.value = false
       refreshData()
+    } else {
+      ElMessage.error(result.message || '操作失败')
     }
   } catch (error) {
-    ElMessage.error('保存失败')
+    ElMessage.error(isEditMode.value ? '更新失败' : '创建失败')
+  }
+}
+
+// 删除产线
+const deleteLine = async (line) => {
+  try {
+    await ElMessageBox.confirm(
+      `确定要删除产线"${line.lineName}"吗？此操作不可恢复。`,
+      '删除确认',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+    )
+
+    const result = await deleteProductionLine(line.lineId)
+    // 兼容V1和V2响应格式
+    if (result.code === 'SUCCESS' || result.success === true) {
+      ElMessage.success(result.message || '删除成功')
+      refreshData()
+    } else {
+      ElMessage.error(result.message || '删除失败')
+    }
+  } catch (error) {
+    if (error !== 'cancel') {
+      ElMessage.error('删除失败')
+    }
   }
 }
 
@@ -208,8 +275,10 @@ const refreshData = async () => {
   loading.value = true
   try {
     const result = await getProductionLines()
-    if (result.code === 'SUCCESS') {
-      productionLines.value = result.data
+    // 兼容V1和V2响应格式
+    if (result.code === 'SUCCESS' || result.success === true) {
+      // V2返回的是数组，V1返回的是 { total, list, page, pageSize }
+      productionLines.value = Array.isArray(result.data) ? result.data : (result.data.list || [])
     }
   } finally {
     loading.value = false
@@ -232,5 +301,10 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
 }
 </style>

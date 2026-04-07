@@ -15,6 +15,10 @@ export const erpSalesOrderModel = {
   tableName: 'erp_sales_order',
   fields: {
     order_id: { type: 'string', primaryKey: true, label: '订单号' },
+    organization: { type: 'string', label: '组织', enum: ['杰诺销售公司', '杰诺智造中心'] },
+    document_type: { type: 'string', label: '单据类型', enum: ['零售订单', '工程订单', '电商订单'] },
+    salesman: { type: 'string', label: '销售员' },
+    creator: { type: 'string', label: '创建人' },
     customer_name: { type: 'string', label: '客户名称' },
     due_date: { type: 'date', label: '承诺交期' },
     total_amount: { type: 'number', label: '订单总金额' },
@@ -24,7 +28,7 @@ export const erpSalesOrderModel = {
     created_at: { type: 'datetime', label: '创建时间' },
     updated_at: { type: 'datetime', label: '更新时间' }
   },
-  indexes: ['order_id', 'customer_name', 'due_date', 'status']
+  indexes: ['order_id', 'customer_name', 'due_date', 'status', 'organization', 'document_type']
 }
 
 // ============================================

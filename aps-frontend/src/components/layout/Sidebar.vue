@@ -52,6 +52,10 @@
               <el-icon class="nav-icon"><Setting /></el-icon>
               <span v-show="!isCollapsed" class="nav-text">预处理规则</span>
             </RouterLink>
+            <RouterLink to="/order/workpiece-bill" class="nav-item nav-item--sub" active-class="nav-item--active">
+              <el-icon class="nav-icon"><List /></el-icon>
+              <span v-show="!isCollapsed" class="nav-text">工件清单</span>
+            </RouterLink>
           </div>
         </transition>
       </div>

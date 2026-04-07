@@ -1,0 +1,424 @@
+2026-04-05 19:43:01:431 info: Login request from user: admin
+2026-04-05 19:43:01:431 info: User login attempt: admin
+2026-04-05 19:43:01:431 error: Login error: Unknown database 'aps_db'
+2026-04-05 19:43:01:431 error: Login controller error: Unknown database 'aps_db'
+2026-04-05 19:43:01:431 error: Error: Unknown database 'aps_db'
+2026-04-05 19:44:12:4412 info: Login request from user: admin
+2026-04-05 19:44:12:4412 info: User login attempt: admin
+2026-04-05 19:44:12:4412 error: Login error: Unknown database 'aps_db'
+2026-04-05 19:44:12:4412 error: Login controller error: Unknown database 'aps_db'
+2026-04-05 19:44:12:4412 error: Error: Unknown database 'aps_db'
+2026-04-05 19:50:45:5045 info: Login request from user: admin
+2026-04-05 19:50:45:5045 info: User login attempt: admin
+2026-04-05 19:50:45:5045 info: User login successful: admin
+2026-04-05 19:51:08:518 info: Fetching orders with params:
+2026-04-05 19:51:08:518 info: Found 0 orders
+2026-04-05 19:51:29:5129 info: Creating order: ORD20240101001
+2026-04-05 19:51:29:5129 error: Create order error: Field 'panel_type' doesn't have a default value
+2026-04-05 19:51:29:5129 error: Create order controller error: Field 'panel_type' doesn't have a default value
+2026-04-05 19:51:29:5129 error: Error: Field 'panel_type' doesn't have a default value
+2026-04-05 19:53:18:5318 info: Login request from user: admin
+2026-04-05 19:53:18:5318 info: User login attempt: admin
+2026-04-05 19:53:18:5318 info: User login successful: admin
+2026-04-05 19:53:18:5318 info: Creating order: ORD20240101001
+2026-04-05 19:53:18:5318 info: Order created successfully: ORD20240101001
+2026-04-05 19:53:18:5318 info: Fetching order detail: ORD20240101001
+2026-04-05 19:53:18:5318 info: Order detail fetched: ORD20240101001
+2026-04-05 19:53:50:5350 info: Login request from user: admin
+2026-04-05 19:53:50:5350 info: User login attempt: admin
+2026-04-05 19:53:50:5350 info: User login successful: admin
+2026-04-05 19:53:50:5350 info: Fetching orders with params:
+2026-04-05 19:53:50:5350 info: Found 1 orders
+2026-04-05 19:54:04:544 info: Login request from user: admin
+2026-04-05 19:54:04:544 info: User login attempt: admin
+2026-04-05 19:54:04:544 info: User login successful: admin
+2026-04-05 19:54:04:544 info: Fetching order detail: ORD20240101001
+2026-04-05 19:54:04:544 info: Order detail fetched: ORD20240101001
+2026-04-05 19:56:20:5620 info: Login request from user: admin
+2026-04-05 19:56:20:5620 info: User login attempt: admin
+2026-04-05 19:56:20:5620 info: User login successful: admin
+2026-04-05 19:56:20:5620 info: Creating order: ORD20240101002
+2026-04-05 19:56:20:5620 info: Order created successfully: ORD20240101002
+2026-04-05 19:56:20:5620 info: Fetching order detail: ORD20240101002
+2026-04-05 19:56:20:5620 info: Order detail fetched: ORD20240101002
+2026-04-05 19:56:20:5620 info: Fetching orders with params:
+2026-04-05 19:56:20:5620 info: Found 2 orders
+2026-04-05 19:56:20:5620 info: Fetching order detail: ORD20240101001
+2026-04-05 19:56:20:5620 info: Order detail fetched: ORD20240101001
+2026-04-05 19:56:20:5620 info: Updating order: ORD20240101001
+2026-04-05 19:56:20:5620 info: Order updated successfully: ORD20240101001
+2026-04-05 19:56:20:5620 info: Fetching order detail: ORD20240101001
+2026-04-05 19:56:20:5620 info: Order detail fetched: ORD20240101001
+2026-04-05 19:56:20:5620 info: Token refreshed for user: admin
+2026-04-05 20:21:04:214 info: Login request from user: admin
+2026-04-05 20:21:04:214 info: User login attempt: admin
+2026-04-05 20:21:04:214 info: User login successful: admin
+2026-04-05 20:21:04:214 info: Planning batch:
+2026-04-05 20:21:04:214 info: Batch planned successfully: BCH1775391664871
+2026-04-05 20:21:04:214 info: Fetching batch detail: BCH1775391664871
+2026-04-05 20:21:04:214 error: Get batch detail error: batch_orders is not associated to batches!
+2026-04-05 20:21:04:214 error: Plan batch controller error: batch_orders is not associated to batches!
+2026-04-05 20:21:04:214 error: Error: batch_orders is not associated to batches!
+2026-04-05 20:23:24:2324 info: Login request from user: admin
+2026-04-05 20:23:24:2324 info: User login attempt: admin
+2026-04-05 20:23:24:2324 info: User login successful: admin
+2026-04-05 20:23:24:2324 info: Planning batch:
+2026-04-05 20:23:24:2324 info: Batch planned successfully: BCH1775391804206
+2026-04-05 20:23:24:2324 info: Fetching batch detail: BCH1775391804206
+2026-04-05 20:23:24:2324 error: Get batch detail error: Unknown column 'batchOrders.deleted_at' in 'field list'
+2026-04-05 20:23:24:2324 error: Plan batch controller error: Unknown column 'batchOrders.deleted_at' in 'field list'
+2026-04-05 20:23:24:2324 error: Error: Unknown column 'batchOrders.deleted_at' in 'field list'
+2026-04-05 20:35:08:358 info: Login request from user: admin
+2026-04-05 20:35:08:358 info: User login attempt: admin
+2026-04-05 20:35:08:358 info: User login successful: admin
+2026-04-05 20:35:08:358 info: Planning batch:
+2026-04-05 20:35:08:358 info: Batch planned successfully: BCH1775392508150
+2026-04-05 20:35:08:358 info: Fetching batch detail: BCH1775392508150
+2026-04-05 20:35:08:358 info: Batch detail fetched: BCH1775392508150
+2026-04-05 20:35:08:358 info: Fetching batches with params:
+2026-04-05 20:35:08:358 info: Found 3 batches
+2026-04-05 20:35:08:358 info: Optimizing schedule:
+2026-04-05 20:35:08:358 info: Schedule optimization completed: 4 schedules generated
+2026-04-05 20:35:08:358 info: Fetching production progress:
+2026-04-05 20:35:08:358 info: Production progress fetched successfully
+2026-04-05 20:35:08:358 info: Fetching anomalies:
+2026-04-05 20:35:08:358 info: Found 4 anomalies
+2026-04-05 20:35:08:358 info: Fetching strategies with params:
+2026-04-05 20:35:08:358 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:08:358 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:08:358 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:08:358 info: Fetching production lines with params:
+2026-04-05 20:35:08:358 info: Found 6 production lines
+2026-04-05 20:35:08:358 info: Fetching process routes with params:
+2026-04-05 20:35:08:358 info: Found 4 process routes
+2026-04-05 20:35:31:3531 info: Login request from user: admin
+2026-04-05 20:35:31:3531 info: User login attempt: admin
+2026-04-05 20:35:31:3531 info: User login successful: admin
+2026-04-05 20:35:31:3531 info: Fetching strategies with params:
+2026-04-05 20:35:31:3531 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:31:3531 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:35:31:3531 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:36:41:3641 info: Login request from user: admin
+2026-04-05 20:36:41:3641 info: User login attempt: admin
+2026-04-05 20:36:41:3641 info: User login successful: admin
+2026-04-05 20:36:41:3641 info: Planning batch:
+2026-04-05 20:36:41:3641 info: Batch planned successfully: BCH1775392601795
+2026-04-05 20:36:41:3641 info: Fetching batch detail: BCH1775392601795
+2026-04-05 20:36:41:3641 info: Batch detail fetched: BCH1775392601795
+2026-04-05 20:36:41:3641 info: Fetching batches with params:
+2026-04-05 20:36:41:3641 info: Found 4 batches
+2026-04-05 20:36:41:3641 info: Optimizing schedule:
+2026-04-05 20:36:41:3641 info: Schedule optimization completed: 4 schedules generated
+2026-04-05 20:36:41:3641 info: Fetching production progress:
+2026-04-05 20:36:41:3641 info: Production progress fetched successfully
+2026-04-05 20:36:41:3641 info: Fetching anomalies:
+2026-04-05 20:36:41:3641 info: Found 4 anomalies
+2026-04-05 20:36:41:3641 info: Fetching strategies with params:
+2026-04-05 20:36:41:3641 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:36:41:3641 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:36:41:3641 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:36:41:3641 info: Fetching production lines with params:
+2026-04-05 20:36:41:3641 info: Found 6 production lines
+2026-04-05 20:36:41:3641 info: Fetching process routes with params:
+2026-04-05 20:36:41:3641 info: Found 4 process routes
+2026-04-05 20:37:09:379 info: Login request from user: admin
+2026-04-05 20:37:09:379 info: User login attempt: admin
+2026-04-05 20:37:09:379 info: User login successful: admin
+2026-04-05 20:37:09:379 info: Fetching strategies with params:
+2026-04-05 20:37:09:379 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:37:09:379 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:37:09:379 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:38:22:3822 info: Login request from user: admin
+2026-04-05 20:38:22:3822 info: User login attempt: admin
+2026-04-05 20:38:22:3822 info: User login successful: admin
+2026-04-05 20:38:22:3822 info: Planning batch:
+2026-04-05 20:38:22:3822 info: Batch planned successfully: BCH1775392702353
+2026-04-05 20:38:22:3822 info: Fetching batch detail: BCH1775392702353
+2026-04-05 20:38:22:3822 info: Batch detail fetched: BCH1775392702353
+2026-04-05 20:38:22:3822 info: Fetching batches with params:
+2026-04-05 20:38:22:3822 info: Found 5 batches
+2026-04-05 20:38:22:3822 info: Optimizing schedule:
+2026-04-05 20:38:22:3822 info: Schedule optimization completed: 4 schedules generated
+2026-04-05 20:38:22:3822 info: Fetching production progress:
+2026-04-05 20:38:22:3822 info: Production progress fetched successfully
+2026-04-05 20:38:22:3822 info: Fetching anomalies:
+2026-04-05 20:38:22:3822 info: Found 4 anomalies
+2026-04-05 20:38:22:3822 info: Fetching strategies with params:
+2026-04-05 20:38:22:3822 error: Get strategies error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:38:22:3822 error: Get strategies controller error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:38:22:3822 error: Error: Unexpected token '板', "板材利用率:0.5,"... is not valid JSON
+2026-04-05 20:38:22:3822 info: Fetching production lines with params:
+2026-04-05 20:38:22:3822 info: Found 6 production lines
+2026-04-05 20:38:22:3822 info: Fetching process routes with params:
+2026-04-05 20:38:22:3822 info: Found 4 process routes
+2026-04-05 20:39:06:396 info: Login request from user: admin
+2026-04-05 20:39:06:396 info: User login attempt: admin
+2026-04-05 20:39:06:396 info: User login successful: admin
+2026-04-05 20:39:07:397 info: Planning batch:
+2026-04-05 20:39:07:397 info: Batch planned successfully: BCH1775392747002
+2026-04-05 20:39:07:397 info: Fetching batch detail: BCH1775392747002
+2026-04-05 20:39:07:397 info: Batch detail fetched: BCH1775392747002
+2026-04-05 20:39:07:397 info: Fetching batches with params:
+2026-04-05 20:39:07:397 info: Found 6 batches
+2026-04-05 20:39:07:397 info: Optimizing schedule:
+2026-04-05 20:39:07:397 info: Schedule optimization completed: 4 schedules generated
+2026-04-05 20:39:07:397 info: Fetching production progress:
+2026-04-05 20:39:07:397 info: Production progress fetched successfully
+2026-04-05 20:39:07:397 info: Fetching anomalies:
+2026-04-05 20:39:07:397 info: Found 4 anomalies
+2026-04-05 20:39:07:397 info: Fetching strategies with params:
+2026-04-05 20:39:07:397 info: Found 3 strategies
+2026-04-05 20:39:07:397 info: Fetching production lines with params:
+2026-04-05 20:39:07:397 info: Found 6 production lines
+2026-04-05 20:39:07:397 info: Fetching process routes with params:
+2026-04-05 20:39:07:397 info: Found 4 process routes
+2026-04-06 07:58:21:5821 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 07:59:27:5927 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 07:59:36:5936 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 07:59:46:5946 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 08:05:31:531 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 09:45:35:4535 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 09:45:59:4559 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 10:00:58:058 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 10:38:32:3832 info: Fetching production lines with params:
+2026-04-06 10:38:32:3832 info: Found 6 production lines
+2026-04-06 10:38:32:3832 info: Fetching production lines with params:
+2026-04-06 10:38:32:3832 info: Found 6 production lines
+2026-04-06 10:40:49:4049 info: Fetching production lines with params:
+2026-04-06 10:40:50:4050 info: Found 6 production lines
+2026-04-06 10:47:40:4740 info: Fetching production lines with params:
+2026-04-06 10:47:40:4740 info: Found 6 production lines
+2026-04-06 10:50:09:509 info: Fetching production lines with params:
+2026-04-06 10:50:09:509 info: Found 6 production lines
+2026-04-06 10:51:10:5110 info: Fetching production lines with params:
+2026-04-06 10:51:10:5110 info: Found 6 production lines
+2026-04-06 10:52:15:5215 info: Fetching production lines with params:
+2026-04-06 10:52:15:5215 info: Found 6 production lines
+2026-04-06 10:55:08:558 info: Fetching production lines with params:
+2026-04-06 10:55:08:558 info: Found 6 production lines
+2026-04-06 10:56:10:5610 info: Fetching production lines with params:
+2026-04-06 10:56:10:5610 info: Found 6 production lines
+2026-04-06 11:00:35:035 info: Fetching production lines with params:
+2026-04-06 11:00:35:035 info: Found 6 production lines
+2026-04-06 12:57:17:5717 info: Fetching orders with params:
+2026-04-06 12:57:17:5717 info: Found 2 orders
+2026-04-06 12:58:03:583 info: Updating order: ORD20240101001
+2026-04-06 12:58:03:583 info: Order updated successfully: ORD20240101001
+2026-04-06 12:58:03:583 info: Fetching order detail: ORD20240101001
+2026-04-06 12:58:03:583 info: Order detail fetched: ORD20240101001
+2026-04-06 12:58:03:583 info: Fetching orders with params:
+2026-04-06 12:58:03:583 info: Found 2 orders
+2026-04-06 12:59:15:5915 info: Creating order: 测试订单 002
+2026-04-06 12:59:15:5915 info: Order created successfully: 测试订单 002
+2026-04-06 12:59:15:5915 info: Fetching order detail: 测试订单 002
+2026-04-06 12:59:15:5915 info: Order detail fetched: 测试订单 002
+2026-04-06 12:59:15:5915 info: Fetching orders with params:
+2026-04-06 12:59:15:5915 info: Found 3 orders
+2026-04-06 13:02:05:25 info: Fetching orders with params:
+2026-04-06 13:02:05:25 info: Found 3 orders
+2026-04-06 20:35:03:353 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:35:14:3514 info: PUT /api/v2/production-lines/LINE006 - Updating production line
+2026-04-06 20:35:14:3514 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:35:16:3516 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:35:38:3538 info: PUT /api/v2/production-lines/LINE006 - Updating production line
+2026-04-06 20:35:38:3538 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:35:40:3540 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:36:06:366 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 20:36:06:366 error: Create production line error: WHERE parameter "line_id" has invalid "undefined" value
+2026-04-06 20:36:08:368 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 20:36:08:368 error: Create production line error: WHERE parameter "line_id" has invalid "undefined" value
+2026-04-06 20:36:18:3618 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 20:36:18:3618 error: Create production line error: WHERE parameter "line_id" has invalid "undefined" value
+2026-04-06 20:44:58:4458 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:56:26:5626 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 20:56:26:5626 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:56:30:5630 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:56:52:5652 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:58:57:5857 info: PUT /api/v2/production-lines/LINE006 - Updating production line
+2026-04-06 20:58:57:5857 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:58:59:5859 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:59:10:5910 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:59:21:5921 info: PUT /api/v2/production-lines/LINE006 - Updating production line
+2026-04-06 20:59:21:5921 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 20:59:23:5923 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 21:05:43:543 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 21:05:43:543 info: Fetching sales orders with params:
+2026-04-06 21:05:43:543 info: Found 0 sales orders
+2026-04-06 21:05:48:548 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 21:05:48:548 info: Fetching sales orders with params:
+2026-04-06 21:05:48:548 info: Found 0 sales orders
+2026-04-06 21:05:50:550 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 21:05:50:550 info: Fetching sales orders with params:
+2026-04-06 21:05:50:550 info: Found 0 sales orders
+2026-04-06 21:23:32:2332 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 21:24:10:2410 info: PUT /api/v2/production-lines/PL003 - Updating production line
+2026-04-06 21:24:10:2410 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 21:25:16:2516 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 21:25:16:2516 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 21:25:39:2539 info: DELETE /api/v2/production-lines/LINE880518 - Deleting production line
+2026-04-06 21:25:39:2539 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 21:44:51:4451 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 21:45:05:455 info: PUT /api/v2/production-lines/PL006 - Updating production line
+2026-04-06 21:45:05:455 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 21:45:48:4548 info: POST /api/v2/production-lines - Creating production line
+2026-04-06 21:45:48:4548 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-06 22:08:30:830 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:08:30:830 info: Fetching sales orders with params:
+2026-04-06 22:08:30:830 info: Found 0 sales orders
+2026-04-06 22:09:33:933 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-06 22:09:33:933 info: Creating sales order: undefined
+2026-04-06 22:09:33:933 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:09:33:933 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:10:01:101 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-06 22:10:01:101 info: Creating sales order: undefined
+2026-04-06 22:10:01:101 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:10:01:101 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:10:44:1044 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-06 22:10:44:1044 info: Creating sales order: undefined
+2026-04-06 22:10:44:1044 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:10:44:1044 error: Create sales order error: WHERE parameter "order_id" has invalid "undefined" value
+2026-04-06 22:11:07:117 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 22:11:07:117 info: Fetching sales orders with params:
+2026-04-06 22:11:07:117 info: Found 0 sales orders
+2026-04-06 23:00:25:025 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 23:00:25:025 info: Fetching sales orders with params:
+2026-04-06 23:00:25:025 info: Found 2 sales orders
+2026-04-06 23:00:34:034 info: PUT /api/v2/erp-orders/TEST002 - Updating sales order
+2026-04-06 23:00:34:034 info: Updating sales order: TEST002
+2026-04-06 23:00:34:034 info: Sales order updated successfully: TEST002
+2026-04-06 23:00:34:034 info: Fetching sales order detail: TEST002
+2026-04-06 23:00:34:034 info: Sales order detail fetched: TEST002
+2026-04-06 23:00:34:034 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 23:00:34:034 info: Fetching sales orders with params:
+2026-04-06 23:00:34:034 info: Found 2 sales orders
+2026-04-06 23:00:47:047 info: PUT /api/v2/erp-orders/OD20260406002 - Updating sales order
+2026-04-06 23:00:47:047 info: Updating sales order: OD20260406002
+2026-04-06 23:00:47:047 info: Sales order updated successfully: OD20260406002
+2026-04-06 23:00:47:047 info: Fetching sales order detail: OD20260406002
+2026-04-06 23:00:47:047 info: Sales order detail fetched: OD20260406002
+2026-04-06 23:00:47:047 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-06 23:00:47:047 info: Fetching sales orders with params:
+2026-04-06 23:00:47:047 info: Found 2 sales orders
+2026-04-07 00:09:48:948 info: POST /api/v2/erp-orders - Creating sales order
+2026-04-07 00:09:48:948 info: Creating sales order: TEST005
+2026-04-07 00:09:48:948 error: Create sales order error: Incorrect date value: 'Invalid date' for column 'due_date' at row 1
+2026-04-07 00:09:48:948 error: Create sales order error: Incorrect date value: 'Invalid date' for column 'due_date' at row 1
+2026-04-07 00:09:50:950 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 00:09:50:950 info: Fetching sales orders with params:
+2026-04-07 00:09:50:950 info: Found 3 sales orders
+2026-04-07 00:09:51:951 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 00:09:51:951 info: Fetching sales orders with params:
+2026-04-07 00:09:51:951 info: Found 3 sales orders
+2026-04-07 00:10:22:1022 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 00:10:22:1022 info: Fetching sales orders with params:
+2026-04-07 00:10:22:1022 info: Found 3 sales orders
+2026-04-07 00:12:24:1224 info: GET /api/v2/production-lines - Fetching production lines
+2026-04-07 09:14:21:1421 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 09:14:21:1421 info: Fetching sales orders with params:
+2026-04-07 09:14:21:1421 info: Found 3 sales orders
+2026-04-07 09:14:43:1443 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:14:43:1443 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:14:49:1449 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:14:49:1449 error: Get workpiece bill detail error: Unknown column 'deleted_at' in 'field list'
+2026-04-07 09:16:31:1631 info: Updating workpiece bill: WB878484
+2026-04-07 09:16:31:1631 error: Update workpiece bill error: Unknown column 'deleted_at' in 'where clause'
+2026-04-07 09:16:31:1631 error: Update workpiece bill error: Unknown column 'deleted_at' in 'where clause'
+2026-04-07 09:16:55:1655 info: Updating workpiece bill: WB878484
+2026-04-07 09:16:55:1655 error: Update workpiece bill error: Unknown column 'deleted_at' in 'where clause'
+2026-04-07 09:16:55:1655 error: Update workpiece bill error: Unknown column 'deleted_at' in 'where clause'
+2026-04-07 10:30:16:3016 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 10:30:16:3016 info: Fetching sales orders with params:
+2026-04-07 10:30:16:3016 info: Found 3 sales orders
+2026-04-07 11:20:04:204 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 11:20:04:204 info: Fetching sales orders with params:
+2026-04-07 11:20:04:204 info: Found 3 sales orders
+2026-04-07 11:20:55:2055 info: Updating workpiece bill: WB231372
+2026-04-07 11:20:55:2055 info: Workpiece bill updated successfully: WB231372
+2026-04-07 11:23:35:2335 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 11:23:35:2335 info: Fetching sales orders with params:
+2026-04-07 11:23:35:2335 info: Found 3 sales orders
+2026-04-07 11:23:41:2341 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 11:23:41:2341 info: Fetching sales orders with params:
+2026-04-07 11:23:41:2341 info: Found 3 sales orders
+2026-04-07 12:28:02:282 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 12:28:02:282 info: Fetching sales orders with params:
+2026-04-07 12:28:02:282 info: Found 3 sales orders
+2026-04-07 12:29:05:295 info: Updating workpiece bill: WB231372
+2026-04-07 12:29:05:295 info: Workpiece bill updated successfully: WB231372
+2026-04-07 12:36:16:3616 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 12:36:16:3616 info: Fetching sales orders with params:
+2026-04-07 12:36:16:3616 info: Found 3 sales orders
+2026-04-07 12:38:50:3850 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 12:38:50:3850 info: Fetching sales orders with params:
+2026-04-07 12:38:50:3850 info: Found 3 sales orders
+2026-04-07 12:40:30:4030 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 12:40:30:4030 info: Fetching sales orders with params:
+2026-04-07 12:40:30:4030 info: Found 3 sales orders
+2026-04-07 12:42:36:4236 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 12:42:36:4236 info: Fetching sales orders with params:
+2026-04-07 12:42:36:4236 info: Found 3 sales orders
+2026-04-07 12:43:55:4355 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 12:43:55:4355 info: Fetching sales orders with params:
+2026-04-07 12:43:55:4355 info: Found 3 sales orders
+2026-04-07 13:13:42:1342 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:13:42:1342 info: Fetching sales orders with params:
+2026-04-07 13:13:42:1342 info: Found 3 sales orders
+2026-04-07 13:14:19:1419 info: Updating workpiece bill: WB231372
+2026-04-07 13:14:19:1419 info: Workpiece bill updated successfully: WB231372
+2026-04-07 13:14:22:1422 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:14:22:1422 info: Fetching sales orders with params:
+2026-04-07 13:14:22:1422 info: Found 3 sales orders
+2026-04-07 13:14:59:1459 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:14:59:1459 info: Fetching sales orders with params:
+2026-04-07 13:14:59:1459 info: Found 3 sales orders
+2026-04-07 13:19:21:1921 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:19:21:1921 info: Fetching sales orders with params:
+2026-04-07 13:19:21:1921 info: Found 3 sales orders
+2026-04-07 13:19:23:1923 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:19:23:1923 info: Fetching sales orders with params:
+2026-04-07 13:19:23:1923 info: Found 3 sales orders
+2026-04-07 13:25:33:2533 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:25:33:2533 info: Fetching sales orders with params:
+2026-04-07 13:25:33:2533 info: Found 3 sales orders
+2026-04-07 13:25:59:2559 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:25:59:2559 info: Fetching sales orders with params:
+2026-04-07 13:25:59:2559 info: Found 3 sales orders
+2026-04-07 13:26:59:2659 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:26:59:2659 info: Fetching sales orders with params:
+2026-04-07 13:26:59:2659 info: Found 3 sales orders
+2026-04-07 13:36:08:368 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:36:08:368 info: Fetching sales orders with params:
+2026-04-07 13:36:08:368 info: Found 3 sales orders
+2026-04-07 13:37:08:378 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:37:08:378 info: Fetching sales orders with params:
+2026-04-07 13:37:08:378 info: Found 3 sales orders
+2026-04-07 13:38:33:3833 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:38:33:3833 info: Fetching sales orders with params:
+2026-04-07 13:38:33:3833 info: Found 3 sales orders
+2026-04-07 13:39:23:3923 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:39:23:3923 info: Fetching sales orders with params:
+2026-04-07 13:39:23:3923 info: Found 3 sales orders
+2026-04-07 13:40:18:4018 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 13:40:18:4018 info: Fetching sales orders with params:
+2026-04-07 13:40:18:4018 info: Found 3 sales orders
+2026-04-07 14:03:34:334 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:03:34:334 info: Fetching sales orders with params:
+2026-04-07 14:03:34:334 info: Found 3 sales orders
+2026-04-07 14:51:07:517 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:51:07:517 info: Fetching sales orders with params:
+2026-04-07 14:51:07:517 info: Found 10 sales orders
+2026-04-07 14:55:31:5531 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:55:31:5531 info: Fetching sales orders with params:
+2026-04-07 14:55:31:5531 info: Found 10 sales orders
+2026-04-07 14:55:33:5533 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:55:33:5533 info: Fetching sales orders with params:
+2026-04-07 14:55:33:5533 info: Found 10 sales orders
+2026-04-07 14:56:26:5626 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:56:26:5626 info: Fetching sales orders with params:
+2026-04-07 14:56:26:5626 info: Found 10 sales orders
+2026-04-07 14:56:28:5628 info: GET /api/v2/erp-orders/OD202604009 - Fetching sales order detail
+2026-04-07 14:56:28:5628 info: Fetching sales order detail: OD202604009
+2026-04-07 14:56:28:5628 info: Sales order detail fetched: OD202604009
+2026-04-07 14:56:32:5632 info: GET /api/v2/erp-orders - Fetching sales orders
+2026-04-07 14:56:32:5632 info: Fetching sales orders with params:
+2026-04-07 14:56:32:5632 info: Found 10 sales orders

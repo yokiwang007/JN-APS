@@ -28,7 +28,13 @@
         
         <el-descriptions :column="3" border>
           <el-descriptions-item label="订单号">{{ order.orderNo }}</el-descriptions-item>
+          <el-descriptions-item label="组织">{{ order.organization }}</el-descriptions-item>
+          <el-descriptions-item label="单据类型">{{ order.documentType }}</el-descriptions-item>
           <el-descriptions-item label="客户名称">{{ order.customerName }}</el-descriptions-item>
+          <el-descriptions-item label="销售员">{{ order.salesman }}</el-descriptions-item>
+          <!-- 
+          <el-descriptions-item label="创建人">{{ order.creator }}</el-descriptions-item>
+          -->
           <el-descriptions-item label="产品名称">{{ order.productType }}</el-descriptions-item>
           <el-descriptions-item label="承诺交期">{{ order.deliveryDate }}</el-descriptions-item>
           <el-descriptions-item label="优先级">

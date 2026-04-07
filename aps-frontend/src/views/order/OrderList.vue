@@ -12,6 +12,21 @@
             <el-option label="已完成" value="已完成" />
           </el-select>
         </el-form-item>
+
+        <el-form-item label="组织">
+          <el-select v-model="searchForm.organization" placeholder="请选择" clearable style="width: 150px">
+            <el-option label="杰诺销售公司" value="杰诺销售公司" />
+            <el-option label="杰诺智造中心" value="杰诺智造中心" />
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="单据类型">
+          <el-select v-model="searchForm.documentType" placeholder="请选择" clearable style="width: 150px">
+            <el-option label="零售订单" value="零售订单" />
+            <el-option label="工程订单" value="工程订单" />
+            <el-option label="电商订单" value="电商订单" />
+          </el-select>
+        </el-form-item>
         
         <el-form-item label="订单类型">
           <el-select v-model="searchForm.orderType" placeholder="请选择" clearable style="width: 120px">
@@ -32,6 +47,10 @@
         <el-form-item label="客户名称">
           <el-input v-model="searchForm.customerName" placeholder="请输入客户名称" clearable style="width: 200px" />
         </el-form-item>
+
+        <el-form-item label="销售员">
+          <el-input v-model="searchForm.salesman" placeholder="请输入销售员" clearable style="width: 150px" />
+        </el-form-item>
         
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
@@ -49,6 +68,10 @@
     <!-- 操作区域 -->
     <div class="table-area">
       <div class="table-toolbar">
+        <el-button type="success" @click="addOrder">
+          <el-icon><Plus /></el-icon>
+          新增订单
+        </el-button>
         <el-button type="primary" @click="handlePreprocess" :disabled="selectedOrders.length === 0">
           <el-icon><VideoPlay /></el-icon>
           批量预处理
@@ -67,8 +90,12 @@
         style="width: 100%"
       >
         <el-table-column type="selection" width="55" />
-        
+
         <el-table-column prop="orderNo" label="订单号" width="150" />
+
+        <el-table-column prop="organization" label="组织" width="120" />
+
+        <el-table-column prop="documentType" label="单据类型" width="110" />
 
         <el-table-column prop="createdAt" label="订单日期" width="120">
           <template #default="{ row }">
@@ -77,12 +104,16 @@
         </el-table-column>
 
         <el-table-column prop="customerName" label="客户名称" width="120" />
-        
+
+        <el-table-column prop="salesman" label="销售员" width="100" />
+
+        <el-table-column prop="creator" label="创建人" width="100" />
+
         <el-table-column prop="productType" label="产品名称" width="100" />
 
         <el-table-column prop="orderType" label="订单类型" width="120">
           <template #default="{ row }">
-            <el-tag :type="getOrderTypeColor(row.orderType)">{{ row.orderType }}</el-tag>
+            <span :style="{ color: getOrderTypeColor(row.orderType) }">{{ row.orderType || '-' }}</span>
           </template>
         </el-table-column>
 
@@ -102,14 +133,22 @@
         
         <el-table-column prop="panelCount" label="板件数" width="100" />
         
-        <el-table-column label="操作" width="280" fixed="right">
+        <el-table-column label="操作" width="350" fixed="right">
           <template #default="{ row }">
             <el-button type="primary" link @click="handleViewDetail(row)">
               <el-icon><View /></el-icon>
               详情
             </el-button>
+            <el-button type="success" link @click="handleEditOrder(row)">
+              <el-icon><Edit /></el-icon>
+              编辑
+            </el-button>
+            <el-button type="danger" link @click="handleDeleteOrder(row)">
+              <el-icon><Delete /></el-icon>
+              删除
+            </el-button>
             <el-button 
-              type="success" 
+              type="warning" 
               link 
               @click="handleSinglePreprocess(row)"
               v-if="row.status === '待审核'"
@@ -118,11 +157,8 @@
               预处理
             </el-button>
             <template v-if="row.status === '审核失败'">
-              <el-button type="warning" link @click="handleMarkPending(row)">
+              <el-button type="info" link @click="handleMarkPending(row)">
                 标记待审核
-              </el-button>
-              <el-button type="danger" link @click="handleCancelOrder(row)">
-                取消
               </el-button>
             </template>
           </template>
@@ -141,6 +177,90 @@
         style="margin-top: 20px; justify-content: flex-end"
       />
     </div>
+
+    <!-- 新增/编辑订单对话框 -->
+    <el-dialog
+      v-model="orderDialogVisible"
+      :title="isEditMode ? '编辑订单' : '新增订单'"
+      width="800px"
+    >
+      <el-form :model="orderForm" label-width="120px">
+        <el-form-item label="订单号">
+          <el-input v-model="orderForm.orderNo" placeholder="留空自动生成" :disabled="isEditMode" />
+        </el-form-item>
+
+        <el-form-item label="组织">
+          <el-select v-model="orderForm.organization" style="width: 100%">
+            <el-option label="杰诺销售公司" value="杰诺销售公司" />
+            <el-option label="杰诺智造中心" value="杰诺智造中心" />
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="单据类型">
+          <el-select v-model="orderForm.documentType" style="width: 100%">
+            <el-option label="零售订单" value="零售订单" />
+            <el-option label="工程订单" value="工程订单" />
+            <el-option label="电商订单" value="电商订单" />
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="订单类型">
+          <el-select v-model="orderForm.orderType" style="width: 100%">
+            <el-option label="标准订单" value="标准订单" />
+            <el-option label="加急订单" value="加急订单" />
+            <el-option label="补件订单" value="补件订单" />
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="客户名称">
+          <el-input v-model="orderForm.customerName" placeholder="请输入客户名称" />
+        </el-form-item>
+
+        <el-form-item label="销售员">
+          <el-input v-model="orderForm.salesman" placeholder="请输入销售员" />
+        </el-form-item>
+
+        <el-form-item label="产品名称">
+          <el-input v-model="orderForm.productType" placeholder="请输入产品名称" />
+        </el-form-item>
+
+        <el-form-item label="承诺交期">
+          <el-date-picker
+            v-model="orderForm.deliveryDate"
+            type="date"
+            placeholder="选择交期"
+            value-format="YYYY-MM-DD"
+            style="width: 100%"
+          />
+        </el-form-item>
+
+        <el-form-item label="优先级">
+          <el-select v-model="orderForm.priority" style="width: 100%">
+            <el-option label="普通" value="普通" />
+            <el-option label="紧急" value="紧急" />
+            <el-option label="特急" value="特急" />
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="特殊工艺">
+          <el-input v-model="orderForm.specialProcess" placeholder="如无特殊工艺可留空" />
+        </el-form-item>
+
+        <el-form-item label="备注">
+          <el-input
+            v-model="orderForm.remark"
+            type="textarea"
+            :rows="3"
+            placeholder="请输入备注信息"
+          />
+        </el-form-item>
+      </el-form>
+
+      <template #footer>
+        <el-button @click="orderDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="saveOrder">保存</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -148,20 +268,27 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Search, Refresh, VideoPlay, View } from '@element-plus/icons-vue'
+import { Search, Refresh, VideoPlay, View, Plus, Edit, Delete } from '@element-plus/icons-vue'
 import { useOrderStore } from '../../stores/order'
+import { getOrders, createOrder, updateOrder, deleteOrder } from '../../utils/api-unified'
 
 const router = useRouter()
 const orderStore = useOrderStore()
 
 const searchForm = ref({
   status: '',
+  organization: '',
+  documentType: '',
   orderType: '',
   priority: '',
-  customerName: ''
+  customerName: '',
+  salesman: ''
 })
 
 const selectedOrders = ref([])
+const orderDialogVisible = ref(false)
+const isEditMode = ref(false)
+const orderForm = ref({})
 
 // 获取状态类型
 const getStatusType = (status) => {
@@ -190,12 +317,12 @@ const getPriorityType = (priority) => {
 
 // 获取订单类型颜色
 const getOrderTypeColor = (orderType) => {
-  const types = {
-    '标准订单': 'info',
-    '加急订单': 'warning',
-    '补件订单': 'danger'
+  const colors = {
+    '标准订单': '#409EFF',
+    '加急订单': '#E6A23C',
+    '补件订单': '#F56C6C'
   }
-  return types[orderType] || 'info'
+  return colors[orderType] || '#909399'
 }
 
 // 搜索
@@ -208,9 +335,12 @@ const handleSearch = () => {
 const handleReset = () => {
   searchForm.value = {
     status: '',
+    organization: '',
+    documentType: '',
     orderType: '',
     priority: '',
-    customerName: ''
+    customerName: '',
+    salesman: ''
   }
   orderStore.updateFilters(searchForm.value)
   orderStore.fetchOrders()
@@ -326,6 +456,83 @@ const handleSizeChange = (size) => {
 const handleCurrentChange = (page) => {
   orderStore.updatePagination({ page })
   orderStore.fetchOrders()
+}
+
+// 新增订单
+const addOrder = () => {
+  isEditMode.value = false
+  orderForm.value = {
+    orderNo: '',
+    organization: '杰诺销售公司',
+    documentType: '零售订单',
+    orderType: '标准订单',
+    customerName: '',
+    salesman: '',
+    productType: '',
+    deliveryDate: '',
+    priority: '普通',
+    specialProcess: '',
+    remark: ''
+  }
+  orderDialogVisible.value = true
+}
+
+// 编辑订单
+const handleEditOrder = (row) => {
+  isEditMode.value = true
+  orderForm.value = { ...row }
+  orderDialogVisible.value = true
+}
+
+// 保存订单
+const saveOrder = async () => {
+  try {
+    let result
+    if (isEditMode.value) {
+      result = await updateOrder(orderForm.value.orderNo, orderForm.value)
+    } else {
+      result = await createOrder(orderForm.value)
+    }
+
+    // 兼容V1和V2响应格式
+    if (result.code === 'SUCCESS' || result.success === true) {
+      ElMessage.success(result.message || (isEditMode.value ? '更新成功' : '创建成功'))
+      orderDialogVisible.value = false
+      orderStore.fetchOrders()
+    } else {
+      ElMessage.error(result.message || '操作失败')
+    }
+  } catch (error) {
+    ElMessage.error(isEditMode.value ? '更新失败' : '创建失败')
+  }
+}
+
+// 删除订单
+const handleDeleteOrder = async (row) => {
+  try {
+    await ElMessageBox.confirm(
+      `确定要删除订单"${row.orderNo} - ${row.customerName}"吗？此操作不可恢复。`,
+      '删除确认',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+    )
+
+    const result = await deleteOrder(row.orderNo)
+    // 兼容V1和V2响应格式
+    if (result.code === 'SUCCESS' || result.success === true) {
+      ElMessage.success(result.message || '删除成功')
+      orderStore.fetchOrders()
+    } else {
+      ElMessage.error(result.message || '删除失败')
+    }
+  } catch (error) {
+    if (error !== 'cancel') {
+      ElMessage.error('删除失败')
+    }
+  }
 }
 
 // 初始化
