@@ -76,8 +76,16 @@ export const getProductionLines = isMockMode() ? mockApi.getProductionLines : re
 export const createProductionLine = isMockMode() ? mockApi.createProductionLine : realApi.createProductionLineApi
 export const updateProductionLine = isMockMode() ? mockApi.updateProductionLine : realApi.updateProductionLineApi
 export const deleteProductionLine = isMockMode() ? mockApi.deleteProductionLine : realApi.deleteProductionLineApi
-export const getProcessRoutes = mockApi.getProcessRoutes
-export const updateProcessRoute = mockApi.updateProcessRoute
+export const getProcessRoutes = isMockMode() ? mockApi.getProcessRoutes : realApi.getProcessRoutesApi
+export const createProcessRoute = isMockMode() ? mockApi.createProcessRoute : realApi.createProcessRouteApi
+export const updateProcessRoute = isMockMode() ? mockApi.updateProcessRoute : realApi.updateProcessRouteApi
+export const deleteProcessRoute = isMockMode() ? mockApi.deleteProcessRoute : realApi.deleteProcessRouteApi
+
+// ==================== 设备列表API ====================
+export const getEquipments = isMockMode() ? mockApi.getEquipments : realApi.getEquipmentsApi
+export const createEquipment = isMockMode() ? mockApi.createEquipment : realApi.createEquipmentApi
+export const updateEquipment = isMockMode() ? mockApi.updateEquipment : realApi.updateEquipmentApi
+export const deleteEquipment = isMockMode() ? mockApi.deleteEquipment : realApi.deleteEquipmentApi
 export const resetData = mockApi.resetData
 export const ensureDemoDataInitialized = mockApi.ensureDemoDataInitialized
 export const readMockStore = mockApi.readMockStore

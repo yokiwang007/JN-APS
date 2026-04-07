@@ -75,6 +75,7 @@ export const generateOrders = (count = 200) => {
       creator: currentUser, // 新增:创建人(默认为当前登录用户)
       customerName: generateChineseName(),
       productType,
+      orderDate: generateRandomDate(-30, 0), // 订单日期：过去30天内
       deliveryDate: generateRandomDate(7, 30),
       status,
       priority,
@@ -445,6 +446,75 @@ export const generateProcessRoutes = () => {
   ]
 }
 
+// 生成设备列表演示数据
+export const generateEquipments = () => {
+  return [
+    {
+      equipmentId: 'EQ001',
+      equipmentName: '电子锯1',
+      type: '开料设备',
+      precision: 4,
+      supportedProcesses: ['开料'],
+      status: '正常',
+      loadRate: 75
+    },
+    {
+      equipmentId: 'EQ002',
+      equipmentName: '电子锯2',
+      type: '开料设备',
+      precision: 4,
+      supportedProcesses: ['开料'],
+      status: '正常',
+      loadRate: 60
+    },
+    {
+      equipmentId: 'EQ003',
+      equipmentName: '封边机1',
+      type: '封边设备',
+      precision: 5,
+      supportedProcesses: ['封边'],
+      status: '正常',
+      loadRate: 85
+    },
+    {
+      equipmentId: 'EQ004',
+      equipmentName: '封边机2',
+      type: '封边设备',
+      precision: 4,
+      supportedProcesses: ['封边'],
+      status: '维护中',
+      loadRate: 0
+    },
+    {
+      equipmentId: 'EQ005',
+      equipmentName: '六面钻1',
+      type: '钻孔设备',
+      precision: 5,
+      supportedProcesses: ['钻孔'],
+      status: '正常',
+      loadRate: 70
+    },
+    {
+      equipmentId: 'EQ006',
+      equipmentName: '六面钻2',
+      type: '钻孔设备',
+      precision: 5,
+      supportedProcesses: ['钻孔'],
+      status: '正常',
+      loadRate: 65
+    },
+    {
+      equipmentId: 'EQ007',
+      equipmentName: '五轴加工中心',
+      type: '加工中心',
+      precision: 5,
+      supportedProcesses: ['铣型', '镂铣', '钻孔'],
+      status: '正常',
+      loadRate: 90
+    }
+  ]
+}
+
 // 生成策略演示数据
 export const generateStrategies = () => {
   return [
@@ -780,6 +850,7 @@ export const initMockData = () => {
   const strategies = generateStrategies()
   const materials = generateMaterials()
   const preprocessResults = generatePreprocessResults(orders)
+  const equipments = generateEquipments()
 
   return {
     orders,
@@ -789,6 +860,7 @@ export const initMockData = () => {
     processRoutes,
     strategies,
     materials,
-    preprocessResults
+    preprocessResults,
+    equipments
   }
 }

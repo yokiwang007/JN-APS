@@ -3,25 +3,31 @@ import { initMockData } from './mock'
 
 // 本地存储键名
 const STORAGE_KEY = 'aps_mock_data'
+const DATA_VERSION = '1.1' // 数据版本，添加orderDate字段后升级
 
 // 获取或初始化数据（损坏、空 orders 时自动重建，避免整站无演示数据）
 const getData = () => {
   const raw = localStorage.getItem(STORAGE_KEY)
   if (!raw) {
     const data = initMockData()
+    data._version = DATA_VERSION
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
     return data
   }
   try {
     const data = JSON.parse(raw)
-    if (!data || !Array.isArray(data.orders) || data.orders.length === 0) {
+    // 检查数据版本，如果版本不匹配或订单没有orderDate字段，重新生成
+    if (!data || !Array.isArray(data.orders) || data.orders.length === 0 || 
+        data._version !== DATA_VERSION || !data.orders[0].orderDate) {
       const fresh = initMockData()
+      fresh._version = DATA_VERSION
       localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh))
       return fresh
     }
     return data
   } catch {
     const fresh = initMockData()
+    fresh._version = DATA_VERSION
     localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh))
     return fresh
   }
@@ -925,6 +931,143 @@ export const updateProcessRoute = async (routeId, params) => {
   saveData(data)
 
   return success(data.processRoutes[index])
+}
+
+// ==================== 设备列表API ====================
+
+// 获取设备列表
+export const getEquipments = async () => {
+  await delay()
+  const data = getData()
+  
+  // 如果没有设备数据，初始化一些默认数据
+  if (!data.equipments || data.equipments.length === 0) {
+    data.equipments = [
+      {
+        equipmentId: 'EQ001',
+        equipmentName: '电子锯1',
+        type: '开料设备',
+        precision: 4,
+        supportedProcesses: ['开料'],
+        status: '正常',
+        loadRate: 75
+      },
+      {
+        equipmentId: 'EQ002',
+        equipmentName: '电子锯2',
+        type: '开料设备',
+        precision: 4,
+        supportedProcesses: ['开料'],
+        status: '正常',
+        loadRate: 60
+      },
+      {
+        equipmentId: 'EQ003',
+        equipmentName: '封边机1',
+        type: '封边设备',
+        precision: 5,
+        supportedProcesses: ['封边'],
+        status: '正常',
+        loadRate: 85
+      },
+      {
+        equipmentId: 'EQ004',
+        equipmentName: '封边机2',
+        type: '封边设备',
+        precision: 4,
+        supportedProcesses: ['封边'],
+        status: '维护中',
+        loadRate: 0
+      },
+      {
+        equipmentId: 'EQ005',
+        equipmentName: '六面钻1',
+        type: '钻孔设备',
+        precision: 5,
+        supportedProcesses: ['钻孔'],
+        status: '正常',
+        loadRate: 70
+      },
+      {
+        equipmentId: 'EQ006',
+        equipmentName: '六面钻2',
+        type: '钻孔设备',
+        precision: 5,
+        supportedProcesses: ['钻孔'],
+        status: '正常',
+        loadRate: 65
+      },
+      {
+        equipmentId: 'EQ007',
+        equipmentName: '五轴加工中心',
+        type: '加工中心',
+        precision: 5,
+        supportedProcesses: ['铣型', '镂铣', '钻孔'],
+        status: '正常',
+        loadRate: 90
+      }
+    ]
+    saveData(data)
+  }
+  
+  return success(data.equipments)
+}
+
+// 创建设备
+export const createEquipment = async (equipmentData) => {
+  await delay()
+  const data = getData()
+  
+  if (!data.equipments) {
+    data.equipments = []
+  }
+  
+  // 检查设备编号是否已存在
+  const existing = data.equipments.find(e => e.equipmentId === equipmentData.equipmentId)
+  if (existing) {
+    return error('设备编号已存在')
+  }
+  
+  data.equipments.push(equipmentData)
+  saveData(data)
+  
+  return success(equipmentData)
+}
+
+// 更新设备
+export const updateEquipment = async (equipmentId, equipmentData) => {
+  await delay()
+  const data = getData()
+  
+  const index = data.equipments.findIndex(e => e.equipmentId === equipmentId)
+  if (index === -1) {
+    return error('设备不存在')
+  }
+  
+  data.equipments[index] = {
+    ...data.equipments[index],
+    ...equipmentData
+  }
+  
+  saveData(data)
+  
+  return success(data.equipments[index])
+}
+
+// 删除设备
+export const deleteEquipment = async (equipmentId) => {
+  await delay()
+  const data = getData()
+  
+  const index = data.equipments.findIndex(e => e.equipmentId === equipmentId)
+  if (index === -1) {
+    return error('设备不存在')
+  }
+  
+  data.equipments.splice(index, 1)
+  saveData(data)
+  
+  return success(null, '删除成功')
 }
 
 // ==================== 工具函数 ====================

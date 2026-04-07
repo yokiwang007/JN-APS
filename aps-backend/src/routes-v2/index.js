@@ -17,6 +17,8 @@ const productionExecutionRoutes = require('./productionExecutionRoutes');
 const fulfillmentManagementRoutes = require('./fulfillmentManagementRoutes');
 const productionLinesRoutes = require('./productionLinesRoutes');
 const workpieceBillRoutes = require('./workpieceBillRoutes');
+const processRouteRoutes = require('./processRouteRoutes');
+const equipmentRoutes = require('./equipmentRoutes');
 
 // 注册路由
 router.use('/api/v2', orderRoutes);
@@ -28,6 +30,8 @@ router.use('/api/v2', productionExecutionRoutes);
 router.use('/api/v2', fulfillmentManagementRoutes);
 router.use('/api/v2', productionLinesRoutes);
 router.use('/api/v2/workpiece-bills', workpieceBillRoutes);
+router.use('/api/v2/process-routes', processRouteRoutes);
+router.use('/api/v2/equipments', equipmentRoutes);
 
 // API根路径
 router.get('/api/v2', (req, res) => {

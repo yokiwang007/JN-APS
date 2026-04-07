@@ -277,6 +277,62 @@ export const deleteProductionLineApi = async (lineId) => {
   return response
 }
 
+// ==================== 工艺路线API ====================
+
+export const getProcessRoutesApi = async () => {
+  const response = await apiClient.get('/api/v2/process-routes')
+  return {
+    code: response.success ? 'SUCCESS' : 'ERROR',
+    data: response.data || []
+  }
+}
+
+export const createProcessRouteApi = async (data) => {
+  const response = await apiClient.post('/api/v2/process-routes', data)
+  return {
+    code: response.success ? 'SUCCESS' : 'ERROR',
+    data: response.data || {}
+  }
+}
+
+export const updateProcessRouteApi = async (routeId, data) => {
+  const response = await apiClient.put(`/api/v2/process-routes/${routeId}`, data)
+  return {
+    code: response.success ? 'SUCCESS' : 'ERROR',
+    data: response.data || {}
+  }
+}
+
+export const deleteProcessRouteApi = async (routeId) => {
+  const response = await apiClient.delete(`/api/v2/process-routes/${routeId}`)
+  return {
+    code: response.success ? 'SUCCESS' : 'ERROR',
+    data: response.data || {}
+  }
+}
+
+// ==================== 设备列表API ====================
+
+export const getEquipmentsApi = async () => {
+  const response = await apiClient.get('/api/v2/equipments')
+  return { code: response.success ? 'SUCCESS' : 'ERROR', data: response.data || [] }
+}
+
+export const createEquipmentApi = async (data) => {
+  const response = await apiClient.post('/api/v2/equipments', data)
+  return { code: response.success ? 'SUCCESS' : 'ERROR', data: response.data || {} }
+}
+
+export const updateEquipmentApi = async (equipmentId, data) => {
+  const response = await apiClient.put(`/api/v2/equipments/${equipmentId}`, data)
+  return { code: response.success ? 'SUCCESS' : 'ERROR', data: response.data || {} }
+}
+
+export const deleteEquipmentApi = async (equipmentId) => {
+  const response = await apiClient.delete(`/api/v2/equipments/${equipmentId}`)
+  return { code: response.success ? 'SUCCESS' : 'ERROR', data: response.data || {} }
+}
+
 // 健康检查
 export const healthCheckApi = async () => {
   const response = await apiClient.get('/health')

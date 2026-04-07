@@ -31,7 +31,18 @@ export const useOrderStore = defineStore('order', () => {
       })
       // 兼容V1和V2响应格式
       if (result.code === 'SUCCESS' || result.success === true) {
-        orders.value = result.data.list || result.data
+        const orderList = result.data.list || result.data
+        // 按订单日期降序、订单号升序排序
+        orders.value = orderList.sort((a, b) => {
+          // 先按订单日期降序
+          const dateA = new Date(a.orderDate || a.createdAt || 0).getTime()
+          const dateB = new Date(b.orderDate || b.createdAt || 0).getTime()
+          if (dateA !== dateB) {
+            return dateB - dateA
+          }
+          // 日期相同则按订单号升序
+          return (a.orderNo || a.orderId || '').localeCompare(b.orderNo || b.orderId || '')
+        })
         pagination.value.total = result.data.total || (Array.isArray(result.data) ? result.data.length : 0)
       }
     } finally {

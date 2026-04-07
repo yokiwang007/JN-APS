@@ -4,74 +4,111 @@
       <template #header>
         <div class="card-header">
           <span>设备配置管理</span>
-          <el-button type="primary" size="small" @click="refreshData">
-            <el-icon><Refresh /></el-icon>
-            刷新
-          </el-button>
+          <div>
+            <el-button type="primary" size="small" @click="addEquipment">
+              <el-icon><Plus /></el-icon>
+              新增
+            </el-button>
+            <el-button type="primary" size="small" @click="refreshData" style="margin-left: 8px">
+              <el-icon><Refresh /></el-icon>
+              刷新
+            </el-button>
+          </div>
         </div>
       </template>
       
-      <el-table :data="equipments" v-loading="loading" stripe>
-        <el-table-column prop="equipmentId" label="设备编号" width="120" />
+      <!-- 左右分栏布局 -->
+      <div class="equipment-layout">
+        <!-- 左侧：设备类型树 -->
+        <div class="type-tree">
+          <el-tree
+            :data="equipmentTypeTree"
+            :props="{ label: 'label', children: 'children' }"
+            node-key="type"
+            highlight-current
+            default-expand-all
+            @node-click="handleTypeSelect"
+          >
+            <template #default="{ node, data }">
+              <span class="tree-node">
+                <el-icon v-if="data.type === 'all'"><List /></el-icon>
+                <el-icon v-else><Monitor /></el-icon>
+                <span style="margin-left: 8px">{{ data.label }}</span>
+                <el-badge :value="data.count" type="primary" style="margin-left: 8px" />
+              </span>
+            </template>
+          </el-tree>
+        </div>
         
-        <el-table-column prop="equipmentName" label="设备名称" width="150" />
-        
-        <el-table-column prop="type" label="设备类型" width="120">
-          <template #default="{ row }">
-            <el-tag :type="getTypeColor(row.type)">{{ row.type }}</el-tag>
-          </template>
-        </el-table-column>
-        
-        <el-table-column prop="precision" label="精度等级" width="100">
-          <template #default="{ row }">
-            <el-rate
-              v-model="row.precision"
-              :max="5"
-              disabled
-              show-score
-              text-color="#ff9900"
-            />
-          </template>
-        </el-table-column>
-        
-        <el-table-column label="支持工艺" width="250">
-          <template #default="{ row }">
-            <el-tag
-              v-for="process in row.supportedProcesses"
-              :key="process"
-              size="small"
-              type="info"
-              style="margin-right: 4px"
-            >
-              {{ process }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        
-        <el-table-column prop="status" label="状态" width="100">
-          <template #default="{ row }">
-            <el-tag :type="getStatusType(row.status)">{{ row.status }}</el-tag>
-          </template>
-        </el-table-column>
-        
-        <el-table-column label="当前负荷" width="150">
-          <template #default="{ row }">
-            <el-progress
-              :percentage="row.loadRate || Math.floor(Math.random() * 100)"
-              :color="getLoadColor"
-            />
-          </template>
-        </el-table-column>
-        
-        <el-table-column label="操作" width="150" fixed="right">
-          <template #default="{ row }">
-            <el-button type="primary" link @click="editEquipment(row)">
-              <el-icon><Edit /></el-icon>
-              编辑
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+        <!-- 右侧：设备列表 -->
+        <div class="equipment-list">
+          <el-table :data="filteredEquipments" v-loading="loading" stripe>
+            <el-table-column prop="equipmentId" label="设备编号" width="120" />
+            
+            <el-table-column prop="equipmentName" label="设备名称" width="150" />
+            
+            <el-table-column prop="type" label="设备类型" width="120">
+              <template #default="{ row }">
+                <el-tag :type="getTypeColor(row.type)">{{ row.type }}</el-tag>
+              </template>
+            </el-table-column>
+            
+            <el-table-column prop="precision" label="精度等级" width="100">
+              <template #default="{ row }">
+                <el-rate
+                  v-model="row.precision"
+                  :max="5"
+                  disabled
+                  show-score
+                  text-color="#ff9900"
+                />
+              </template>
+            </el-table-column>
+            
+            <el-table-column label="支持工艺" width="250">
+              <template #default="{ row }">
+                <el-tag
+                  v-for="process in row.supportedProcesses"
+                  :key="process"
+                  size="small"
+                  type="info"
+                  style="margin-right: 4px"
+                >
+                  {{ process }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            
+            <el-table-column prop="status" label="状态" width="100">
+              <template #default="{ row }">
+                <el-tag :type="getStatusType(row.status)">{{ row.status }}</el-tag>
+              </template>
+            </el-table-column>
+            
+            <el-table-column label="当前负荷" width="150">
+              <template #default="{ row }">
+                <el-progress
+                  :percentage="row.loadRate || 0"
+                  :color="getLoadColor"
+                />
+              </template>
+            </el-table-column>
+            
+            <el-table-column label="操作" width="150" fixed="right">
+              <template #default="{ row }">
+                <el-button type="primary" link @click="editEquipment(row)">
+                  <el-icon><Edit /></el-icon>
+                  编辑
+                </el-button>
+                <el-button type="danger" link @click="handleDelete(row)">
+                  <el-icon><Delete /></el-icon>
+                  删除
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
     </el-card>
     
     <!-- 编辑对话框 -->
@@ -134,14 +171,56 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
-import { Refresh, Edit } from '@element-plus/icons-vue'
+import { ref, onMounted, computed } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Refresh, Edit, Delete, Plus, List, Monitor } from '@element-plus/icons-vue'
+import { getEquipments, createEquipment, updateEquipment, deleteEquipment } from '../../utils/api-unified'
 
 const equipments = ref([])
 const loading = ref(false)
 const editDialogVisible = ref(false)
 const editForm = ref({})
+const selectedType = ref('all')
+
+// 设备类型树
+const equipmentTypeTree = computed(() => {
+  const typeMap = {}
+  
+  // 统计各类型设备数量
+  equipments.value.forEach(e => {
+    if (!typeMap[e.type]) {
+      typeMap[e.type] = 0
+    }
+    typeMap[e.type]++
+  })
+  
+  // 构建树形数据
+  const children = Object.keys(typeMap).map(type => ({
+    label: type,
+    type: type,
+    count: typeMap[type]
+  }))
+  
+  return [{
+    label: '全部设备',
+    type: 'all',
+    count: equipments.value.length,
+    children: children
+  }]
+})
+
+// 过滤后的设备列表
+const filteredEquipments = computed(() => {
+  if (selectedType.value === 'all') {
+    return equipments.value
+  }
+  return equipments.value.filter(e => e.type === selectedType.value)
+})
+
+// 选择设备类型
+const handleTypeSelect = (data) => {
+  selectedType.value = data.type
+}
 
 // 获取设备类型颜色
 const getTypeColor = (type) => {
@@ -178,9 +257,23 @@ const editEquipment = (equipment) => {
 }
 
 // 保存设备
-const saveEquipment = () => {
-  ElMessage.success('保存成功')
-  editDialogVisible.value = false
+const saveEquipment = async () => {
+  try {
+    const isNew = !equipments.value.find(e => e.equipmentId === editForm.value.equipmentId)
+    let result
+    if (isNew) {
+      result = await createEquipment(editForm.value)
+    } else {
+      result = await updateEquipment(editForm.value.equipmentId, editForm.value)
+    }
+    if (result.code === 'SUCCESS') {
+      ElMessage.success(isNew ? '创建成功' : '保存成功')
+      editDialogVisible.value = false
+      refreshData()
+    }
+  } catch (error) {
+    ElMessage.error('保存失败')
+  }
 }
 
 // 刷新数据
@@ -189,74 +282,50 @@ const refreshData = () => {
 }
 
 // 加载数据
-const loadData = () => {
+const loadData = async () => {
   loading.value = true
-  equipments.value = [
-    {
-      equipmentId: 'EQ001',
-      equipmentName: '电子锯1',
-      type: '开料设备',
-      precision: 4,
-      supportedProcesses: ['开料'],
-      status: '正常',
-      loadRate: 75
-    },
-    {
-      equipmentId: 'EQ002',
-      equipmentName: '电子锯2',
-      type: '开料设备',
-      precision: 4,
-      supportedProcesses: ['开料'],
-      status: '正常',
-      loadRate: 60
-    },
-    {
-      equipmentId: 'EQ003',
-      equipmentName: '封边机1',
-      type: '封边设备',
-      precision: 5,
-      supportedProcesses: ['封边'],
-      status: '正常',
-      loadRate: 85
-    },
-    {
-      equipmentId: 'EQ004',
-      equipmentName: '封边机2',
-      type: '封边设备',
-      precision: 4,
-      supportedProcesses: ['封边'],
-      status: '维护中',
-      loadRate: 0
-    },
-    {
-      equipmentId: 'EQ005',
-      equipmentName: '六面钻1',
-      type: '钻孔设备',
-      precision: 5,
-      supportedProcesses: ['钻孔'],
-      status: '正常',
-      loadRate: 70
-    },
-    {
-      equipmentId: 'EQ006',
-      equipmentName: '六面钻2',
-      type: '钻孔设备',
-      precision: 5,
-      supportedProcesses: ['钻孔'],
-      status: '正常',
-      loadRate: 65
-    },
-    {
-      equipmentId: 'EQ007',
-      equipmentName: '五轴加工中心',
-      type: '加工中心',
-      precision: 5,
-      supportedProcesses: ['铣型', '镂铣', '钻孔'],
-      status: '正常',
-      loadRate: 90
+  try {
+    const result = await getEquipments()
+    if (result.code === 'SUCCESS') {
+      equipments.value = result.data
     }
-  ]
-  loading.value = false
+  } catch (error) {
+    ElMessage.error('加载数据失败')
+  } finally {
+    loading.value = false
+  }
+}
+
+// 新增设备
+const addEquipment = () => {
+  editForm.value = {
+    equipmentId: `EQ${Date.now().toString().slice(-6)}`,
+    equipmentName: '',
+    type: '开料设备',
+    precision: 3,
+    supportedProcesses: ['开料'],
+    status: '正常',
+    loadRate: 0
+  }
+  editDialogVisible.value = true
+}
+
+// 删除设备
+const handleDelete = async (row) => {
+  try {
+    await ElMessageBox.confirm(`确定要删除设备 "${row.equipmentName}" 吗？`, '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+    const result = await deleteEquipment(row.equipmentId)
+    if (result.code === 'SUCCESS') {
+      ElMessage.success('删除成功')
+      refreshData()
+    }
+  } catch (error) {
+    if (error !== 'cancel') ElMessage.error('删除失败')
+  }
 }
 
 onMounted(() => {
@@ -275,5 +344,27 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.equipment-layout {
+  display: flex;
+  gap: 20px;
+  min-height: 500px;
+}
+
+.type-tree {
+  width: 250px;
+  border-right: 1px solid #e4e7ed;
+  padding-right: 20px;
+}
+
+.tree-node {
+  display: flex;
+  align-items: center;
+}
+
+.equipment-list {
+  flex: 1;
+  overflow-x: auto;
 }
 </style>

@@ -4,10 +4,16 @@
       <template #header>
         <div class="card-header">
           <span>生产周期设置</span>
-          <el-button type="primary" size="small" @click="refreshData">
-            <el-icon><Refresh /></el-icon>
-            刷新
-          </el-button>
+          <div>
+            <el-button type="primary" size="small" @click="addRoute">
+              <el-icon><Plus /></el-icon>
+              新增
+            </el-button>
+            <el-button type="primary" size="small" @click="refreshData" style="margin-left: 8px">
+              <el-icon><Refresh /></el-icon>
+              刷新
+            </el-button>
+          </div>
         </div>
       </template>
       
@@ -73,6 +79,10 @@
             <el-button type="primary" link @click="editRoute(row)">
               <el-icon><Edit /></el-icon>
               编辑
+            </el-button>
+            <el-button type="danger" link @click="deleteRoute(row)">
+              <el-icon><Delete /></el-icon>
+              删除
             </el-button>
           </template>
         </el-table-column>
@@ -182,9 +192,9 @@
 
 <script setup>
 import { ref, nextTick, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
-import { Refresh, Edit } from '@element-plus/icons-vue'
-import { getProcessRoutes, updateProcessRoute } from '../../utils/api-unified'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Refresh, Edit, Delete, Plus } from '@element-plus/icons-vue'
+import { getProcessRoutes, createProcessRoute, updateProcessRoute, deleteProcessRoute } from '../../utils/api-unified'
 
 const processRoutes = ref([])
 const loading = ref(false)
@@ -198,6 +208,47 @@ const inputRef = ref(null)
 const editRoute = (route) => {
   editForm.value = { ...route }
   editDialogVisible.value = true
+}
+
+// 新增工艺路线
+const addRoute = () => {
+  editForm.value = {
+    routeId: `PR${Date.now().toString().slice(-6)}`,
+    routeName: '',
+    panelType: '柜体板',
+    processSequence: ['开料', '封边', '钻孔', '分拣'],
+    standardWorkTime: 15,
+    productionCycle: 3,
+    deliveryCommitment: 5,
+    requiredEquipments: ['电子锯', '封边机', '六面钻'],
+    processRequirement: ''
+  }
+  editDialogVisible.value = true
+}
+
+// 删除工艺路线
+const deleteRoute = async (route) => {
+  try {
+    await ElMessageBox.confirm(
+      `确定要删除工艺路线 "${route.routeId}" 吗？`,
+      '提示',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+    )
+
+    const result = await deleteProcessRoute(route.routeId)
+    if (result.code === 'SUCCESS') {
+      ElMessage.success('删除成功')
+      refreshData()
+    }
+  } catch (error) {
+    if (error !== 'cancel') {
+      ElMessage.error('删除失败')
+    }
+  }
 }
 
 // 移除工序
@@ -225,9 +276,18 @@ const addProcess = () => {
 // 保存工艺路线
 const saveRoute = async () => {
   try {
-    const result = await updateProcessRoute(editForm.value.routeId, editForm.value)
+    // 判断是新增还是编辑
+    const isNew = !processRoutes.value.find(r => r.routeId === editForm.value.routeId)
+    
+    let result
+    if (isNew) {
+      result = await createProcessRoute(editForm.value)
+    } else {
+      result = await updateProcessRoute(editForm.value.routeId, editForm.value)
+    }
+    
     if (result.code === 'SUCCESS') {
-      ElMessage.success('保存成功')
+      ElMessage.success(isNew ? '创建成功' : '保存成功')
       editDialogVisible.value = false
       refreshData()
     }
